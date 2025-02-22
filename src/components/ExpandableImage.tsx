@@ -7,8 +7,9 @@ export default function ExpandableImage({ src, alt }: { src: string | StaticImpo
             <Image
                 src={src}
                 alt={alt}
-                layout="fill"
-                objectFit="cover"
+                fill={true}
+                style={{objectFit: "cover"}}
+                sizes="(max-width: 100%) 400px"
                 priority
             />
         </div>
