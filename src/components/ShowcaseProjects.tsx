@@ -1,27 +1,49 @@
-import * as React from "react"
-import demoWork from "../../public/demo-work.webp"
+"use client"
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import {
-    Carousel,
-    CarouselContent,
-    CarouselItem,
-    CarouselNext, CarouselPrevious
-} from "@/components/ui/carousel"
-import Image from "next/image"
+import Image from "next/image";
+import * as React from "react";
+import {useState, useEffect} from "react";
+import {Button} from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogClose } from "@/components/ui/dialog";
 
-const projects = [
+interface ProjectInterface {
+    name: string;
+    description: string;
+    images: string[];
+    link: string;
+}
+
+const projects: ProjectInterface[] = [
     {
         name: "MyCGPA",
-        description: "A user-friendly mobile app for students to compile and calculate their university CGPA."
+        description: "A user-friendly mobile app for students to compile and calculate their university CGPA.",
+        images: ["/demo-work.webp", "/demo-work-1.webp", "/demo-work-2.webp"],
+        link: "https://example.com"
     },
     {
         name: "Watchman Hymns",
-        description: "A digital hymn book app for church worship."
+        description: "A digital hymn book app for church worship.",
+        images: ["/demo-work-2.webp", "/demo-work-1.webp", "/demo-work.webp"],
+        link: "https://example.com"
     }
-]
+];
 
 export default function ShowcaseProjects() {
+    const [activeProject, setActiveProject] = React.useState<ProjectInterface | null>(null);
+    const [currentImageIndices, setCurrentImageIndices] = useState(projects.map(() => 0));
+
+    // Cycle images for each project card
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentImageIndices((prevIndices) =>
+                prevIndices.map((index, projectIdx) => (index + 1) % projects[projectIdx].images.length)
+            );
+        }, 2000);
+        return () => clearInterval(interval);
+    }, []);
+
     return (
         <>
             <Carousel className="mt-6 w-full relative">
@@ -31,24 +53,27 @@ export default function ShowcaseProjects() {
                             <Card className="w-full relative min-h-[360px]">
                                 <CardHeader className="p-0">
                                     <Image
-                                        src={demoWork}
+                                        src={project.images[currentImageIndices[index]]}
                                         alt={`${project.name} project`}
+                                        width={600}
+                                        height={360}
                                         className="w-full h-60 object-cover rounded-t-lg"
                                     />
                                 </CardHeader>
                                 <CardContent className="p-6">
                                     <CardTitle className="text-xl font-bold">{project.name}</CardTitle>
                                     <CardDescription className="text-gray-600">{project.description}</CardDescription>
+                                    <Button className="mt-4" onClick={() => setActiveProject(project)}>See More</Button>
                                 </CardContent>
                             </Card>
                         </CarouselItem>
                     ))}
                 </CarouselContent>
-
-                {/* Floating Single Next Arrow */}
                 <CarouselPrevious className="absolute left-3.5 top-[40%] -translate-y-1/2 bg-white bg-opacity-75 p-3 rounded-full shadow-md z-10" />
                 <CarouselNext className="absolute right-3.5 top-[40%] -translate-y-1/2 bg-white bg-opacity-75 p-3 rounded-full shadow-md z-10" />
             </Carousel>
+
+            {activeProject && (<ProjectModal project={activeProject} onClose={() => setActiveProject(null)} />)}
 
             {/* Quote Section */}
             <div className="flex flex-col mt-6 w-full text-center items-center">
@@ -61,5 +86,41 @@ export default function ShowcaseProjects() {
                 </p>
             </div>
         </>
+    );
+}
+
+interface ProjectModalProps {
+    project: ProjectInterface | null;
+    onClose: () => void;
+}
+
+const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
+
+    if(project == null) return null;
+
+    return (
+        <Dialog open={!!project} onOpenChange={() => onClose()}>
+            <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+                <DialogHeader>
+                    <DialogTitle>{project.name}</DialogTitle>
+                    <DialogDescription>{project.description}</DialogDescription>
+                </DialogHeader>
+                <Carousel className="mt-4">
+                    <CarouselContent>
+                        {project.images.map((img, imgIndex) => (
+                            <CarouselItem key={imgIndex} className="w-full">
+                                <Image src={img} alt="Project Image" width={600} height={360} className="w-full h-60 object-cover rounded-lg" />
+                            </CarouselItem>
+                        ))}
+                    </CarouselContent>
+                    <CarouselPrevious />
+                    <CarouselNext />
+                </Carousel>
+                <a href={project.link} target="_blank" rel="noopener noreferrer" className="block mt-4 text-blue-600 hover:underline">Visit Project</a>
+                <DialogClose asChild>
+                    <Button className="mt-4">Close</Button>
+                </DialogClose>
+            </DialogContent>
+        </Dialog>
     )
 }
