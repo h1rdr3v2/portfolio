@@ -41,7 +41,7 @@ export default function ShowcaseProjects() {
                         <CarouselItem key={index} className="w-full">
                             <Card className="w-full relative min-h-[360px]">
                                 <CardHeader className="p-0">
-                                    <CrossFadeImage images={project.images} width={600} height={360}/>
+                                    <CrossFadeImage images={project.images}/>
                                 </CardHeader>
                                 <CardContent className="p-6">
                                     <CardTitle className="text-xl font-bold">{project.name}</CardTitle>
