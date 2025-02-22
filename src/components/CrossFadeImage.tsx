@@ -28,11 +28,12 @@ export function CrossFadeImage({
                     alt={alt}
                     width={width}
                     height={height}
-                    objectFit="cover"
-                    className={`absolute top-0 left-0 w-full h-full rounded-t-lg fade-image`}
+                    className={`absolute top-0 left-0 rounded-t-lg fade-image`}
                     style={{
+                        objectFit: "cover",
                         animationDelay: `${-2 * (images.length - 1 - index)}s`
                     }}
+                    priority={true}
                 />
             ))}
         </div>
