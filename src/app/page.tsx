@@ -1,8 +1,11 @@
 import WavingText from "@/components/WavingText";
 import ExpandableImage from "@/components/ExpandableImage";
-import me from "../assets/me.jpeg"
+import me from "../../public/me.jpeg"
 import Link from "next/link";
 import Badge from "@/components/Badge";
+import {ModeToggle} from "@/components/ModeToggle";
+import "./pagestyle.css"
+import ShowcaseProjects from "@/components/ShowcaseProjects";
 
 export default function Home() {
   return (
@@ -10,10 +13,11 @@ export default function Home() {
       <header className="w-full flex flex-row justify-between p-3 md:p-5 md:fixed md:z-20">
         <nav className="flex flex-row items-center justify-between w-full">
             <div className="flex flex-row gap-2 items-center">
-                <Link className="text-lg font-black text-white duration-300 motion-reduce:transition-none " href="/">DE.</Link>
+                <Link className="text-lg font-black duration-300 motion-reduce:transition-none " href="/">DE.</Link>
             </div>
-            <div className="flex flex-row gap-2.5">
+            <div className="flex flex-row gap-2.5 items-center">
                 <p>Nigeria</p>
+                <ModeToggle />
             </div>
         </nav>
       </header>
@@ -34,9 +38,11 @@ export default function Home() {
               </p>
           </section>
           <section className="w-full">
-              <Badge text="projects"/>
+              <Badge text="projects" type={"bold"}/>
+              <ShowcaseProjects />
           </section>
       </main>
     </div>
+
   );
 }
