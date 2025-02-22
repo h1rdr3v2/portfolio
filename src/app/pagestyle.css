@@ -19,3 +19,25 @@
     50% { transform: rotate(0deg); }
     100% { transform: rotate(0deg); }
 }
+
+.fade-image {
+    animation: fade 6s infinite;
+}
+
+@keyframes fade {
+    0% {
+        opacity: 0;
+    }
+    20% {
+        opacity: 1;
+    }
+    33% {
+        opacity: 1;
+    }
+    53% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+    }
+}

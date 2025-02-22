@@ -2,11 +2,11 @@
 
 import Image from "next/image";
 import * as React from "react";
-import {useState, useEffect} from "react";
 import {Button} from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogClose } from "@/components/ui/dialog";
+import {CrossFadeImage} from "@/components/CrossFadeImage";
 
 interface ProjectInterface {
     name: string;
@@ -32,17 +32,6 @@ const projects: ProjectInterface[] = [
 
 export default function ShowcaseProjects() {
     const [activeProject, setActiveProject] = React.useState<ProjectInterface | null>(null);
-    const [currentImageIndices, setCurrentImageIndices] = useState(projects.map(() => 0));
-
-    // Cycle images for each project card
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setCurrentImageIndices((prevIndices) =>
-                prevIndices.map((index, projectIdx) => (index + 1) % projects[projectIdx].images.length)
-            );
-        }, 2000);
-        return () => clearInterval(interval);
-    }, []);
 
     return (
         <>
@@ -52,13 +41,7 @@ export default function ShowcaseProjects() {
                         <CarouselItem key={index} className="w-full">
                             <Card className="w-full relative min-h-[360px]">
                                 <CardHeader className="p-0">
-                                    <Image
-                                        src={project.images[currentImageIndices[index]]}
-                                        alt={`${project.name} project`}
-                                        width={600}
-                                        height={360}
-                                        className="w-full h-60 object-cover rounded-t-lg"
-                                    />
+                                    <CrossFadeImage images={project.images} width={600} height={360}/>
                                 </CardHeader>
                                 <CardContent className="p-6">
                                     <CardTitle className="text-xl font-bold">{project.name}</CardTitle>
@@ -95,8 +78,7 @@ interface ProjectModalProps {
 }
 
 const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
-
-    if(project == null) return null;
+    if(!project) return null;
 
     return (
         <Dialog open={!!project} onOpenChange={() => onClose()}>
