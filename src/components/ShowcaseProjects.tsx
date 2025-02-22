@@ -25,10 +25,10 @@ export default function ShowcaseProjects() {
     return (
         <>
             <Carousel className="mt-6 w-full relative">
-                <CarouselContent className="w-full">
+                <CarouselContent>
                     {projects.map((project, index) => (
                         <CarouselItem key={index} className="w-full">
-                            <Card className="w-full shadow-lg relative min-h-[360px]">
+                            <Card className="w-full relative min-h-[360px]">
                                 <CardHeader className="p-0">
                                     <Image
                                         src={demoWork}
@@ -47,7 +47,7 @@ export default function ShowcaseProjects() {
 
                 {/* Floating Single Next Arrow */}
                 <CarouselPrevious className="absolute left-3.5 top-[40%] -translate-y-1/2 bg-white bg-opacity-75 p-3 rounded-full shadow-md z-10" />
-                <CarouselNext className="absolute right-[1.875rem] top-[40%] -translate-y-1/2 bg-white bg-opacity-75 p-3 rounded-full shadow-md z-10" />
+                <CarouselNext className="absolute right-3.5 top-[40%] -translate-y-1/2 bg-white bg-opacity-75 p-3 rounded-full shadow-md z-10" />
             </Carousel>
 
             {/* Quote Section */}
