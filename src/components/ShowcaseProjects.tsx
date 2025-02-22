@@ -52,8 +52,8 @@ export default function ShowcaseProjects() {
                         </CarouselItem>
                     ))}
                 </CarouselContent>
-                <CarouselPrevious className="absolute left-3.5 top-[40%] -translate-y-1/2 bg-white bg-opacity-75 p-3 rounded-full shadow-md z-10" />
-                <CarouselNext className="absolute right-3.5 top-[40%] -translate-y-1/2 bg-white bg-opacity-75 p-3 rounded-full shadow-md z-10" />
+                <CarouselPrevious className="absolute left-3.5 top-[35%] -translate-y-1/2 bg-white bg-opacity-75 p-3 rounded-full shadow-md z-10" />
+                <CarouselNext className="absolute right-3.5 top-[35%] -translate-y-1/2 bg-white bg-opacity-75 p-3 rounded-full shadow-md z-10" />
             </Carousel>
 
             {activeProject && (<ProjectModal project={activeProject} onClose={() => setActiveProject(null)} />)}
@@ -82,21 +82,35 @@ const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
 
     return (
         <Dialog open={!!project} onOpenChange={() => onClose()}>
-            <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+            <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto overflow-x-hidden">
                 <DialogHeader>
                     <DialogTitle>{project.name}</DialogTitle>
                     <DialogDescription>{project.description}</DialogDescription>
                 </DialogHeader>
+
                 <Carousel className="mt-4">
                     <CarouselContent>
                         {project.images.map((img, imgIndex) => (
                             <CarouselItem key={imgIndex} className="w-full">
-                                <Image src={img} alt="Project Image" width={600} height={360} className="w-full h-60 object-cover rounded-lg" />
+                                <Image
+                                    src={img}
+                                    alt="Project Image"
+                                    width={600}
+                                    height={360}
+                                    sizes="(max-width: 640px) 320px, (max-width: 1024px) 500px, 700px"
+                                    className="rounded-lg"
+                                    style={{
+                                        objectFit: "cover",
+                                        width: "100%",
+                                        height: "auto",
+                                    }}
+                                    priority
+                                />
                             </CarouselItem>
                         ))}
                     </CarouselContent>
-                    <CarouselPrevious />
-                    <CarouselNext />
+                    <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2 bg-white bg-opacity-75 p-3 rounded-full shadow-md z-10" />
+                    <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2 bg-white bg-opacity-75 p-3 rounded-full shadow-md z-10" />
                 </Carousel>
                 <a href={project.link} target="_blank" rel="noopener noreferrer" className="block mt-4 text-blue-600 hover:underline">Visit Project</a>
                 <DialogClose asChild>
