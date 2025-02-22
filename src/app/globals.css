@@ -21,7 +21,7 @@ body {
 }
 
 .country:hover {
-  cursor: url('/nigeria.png') 20 20, auto;;
+  cursor: url('../../public/nigeria.png') 20 20, auto;;
 }
 
 .waving-hand {
