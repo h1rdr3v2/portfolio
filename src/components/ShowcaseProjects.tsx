@@ -1,6 +1,6 @@
 import * as React from "react"
 import demoWork from "../../public/demo-work.webp"
-import quote from "../../public/quote.svg"
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import {
     Carousel,
