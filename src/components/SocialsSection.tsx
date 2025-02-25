@@ -4,11 +4,19 @@ import Link from "next/link";
 const socials = [
     {
         name: "linkedin",
-        url: "https://www.linkedin.com/in/in/australia/",
+        url: "https://www.linkedin.com/in/destinyezenwata/",
+    },
+    {
+        name: "mail",
+        url: "mailto:support@bleon.co",
     },
     {
         name: "upwork",
-        url: "https://www.upwork.com/in/australia/",
+        url: "https://www.upwork.com/freelancers/~01699292f4f731ebce",
+    },
+    {
+        name: "github",
+        url: "https://github.com/h1rdr3v2",
     }
 ]
 const SocialsSection = () => {
