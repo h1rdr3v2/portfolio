@@ -7,6 +7,7 @@ import FooterSection from "@/components/FooterSection";
 import HeaderSection from "@/components/HeaderSection";
 import SocialsSection from "@/components/SocialsSection";
 import ShowcaseProjectsSection from "@/components/ShowcaseProjectsSection";
+import RolesSection from "@/components/RolesSection";
 
 const projects: ProjectInterface[] = [
     {
@@ -68,6 +69,7 @@ export default function Home() {
           <AboutSection />
           <ShowcaseProjectsSection projects={projects} />
           <QuoteSection />
+          <RolesSection />
           <SocialsSection socials={socials} />
           <FooterSection />
       </main>

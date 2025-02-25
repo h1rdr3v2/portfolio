@@ -8,8 +8,8 @@
   :root {
     --background: hsl(0 0% 100%);
     --foreground: hsl(0, 0%, 3.9%);
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
+    --card: hsl(0 0% 97%);
+    --card-foreground: hsl(215 27.9% 7.9%);
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 3.9%;
     --primary: hsl(0 0% 3.9%);
@@ -35,8 +35,8 @@
   .dark {
     --background: hsl(255 75% 4%);
     --foreground: hsl(0, 0%, 100%);
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
+    --card: hsl(215 27.9% 7.9%);
+    --card-foreground: hsl(210 20% 98%);
     --popover: 0 0% 3.9%;
     --popover-foreground: 0 0% 98%;
     --primary: hsl(0 0% 98%);
