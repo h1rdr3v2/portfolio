@@ -146,7 +146,7 @@ const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
                 <div className="mt-2 space-y-4">
                     {project.content?.map((item, index) => (
                         <div key={index} className="flex flex-col items-center">
-                            {item.image && <Image src={item.image} alt="Project Detail" width={500} height={300} className="rounded-lg" />}
+                            {item.image && <Image src={item.image} alt="Project Detail" width={500} height={300} className="rounded-lg" priority />}
                             {item.body && <p className="mt-2 dark:text-gray-300">{item.body}</p>}
                         </div>
                     ))}
