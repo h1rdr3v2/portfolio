@@ -39,26 +39,33 @@ interface ProjectModalProps {
 const projects: ProjectInterface[] = [
     {
         name: "MyCGPA",
-        description: "A user-friendly mobile app for students to compile and calculate their university CGPA.",
+        description: "A user-friendly mobile app designed to help university students track and calculate their CGPA effortlessly.",
         images: ["/mycgpa-1.png", "/mycgpa-2.png", "/mycgpa-3.png", "/mycgpa-4.png"],
         links: {
             appstore: "https://apps.apple.com/us/app/mycgpa/id6450861410"
         },
         tools: ['React Native'],
         content: [
-            { body: "MyCGPA is designed to help students easily manage their GPA calculations, track their academic progress, and make informed decisions about their courses." },
+            { body: "MyCGPA simplifies GPA calculations, allowing students to efficiently manage their academic performance and make informed course decisions." },
             { image: "/mycgpa-5.png" },
-            { body: "In the image above, we show how a student can enter their course details and instantly get their GPA calculations." }
+            { body: "The screenshot above demonstrates how students can input their course details and instantly receive accurate GPA calculations." }
         ]
     },
     {
         name: "Watchman Hymns",
-        description: "A digital hymn book app for church worship.",
-        images: ["/demo-work-2.webp", "/demo-work-1.webp", "/demo-work.webp"],
+        description: "A digital hymn book app designed to enhance worship experiences in church services.",
+        images: ["/watchman-hymns-4.png", "/watchman-hymns-1.png", "/watchman-hymns-2.png", "/watchman-hymns-3.png"],
         links: {
             appstore: "https://apps.apple.com/ng/app/watchmans-hymnal/id6740525384"
         },
         tools: ['React Native'],
+        content: [
+            { body: "Watchman Hymns is a voluntary project developed for the Watchman Catholic Charismatic Renewal Movement church, providing easy access to hymns for worship." },
+            { image: "/watchman-hymns-5.png" },
+            { body: "The app features a beautifully designed dark mode for an immersive reading experience." },
+            { image: "/watchman-hymns-3.png" },
+            { body: "It also supports iPads, ensuring a clear and optimized viewing experience on larger screens." }
+        ]
     }
 ];
 
@@ -151,7 +158,6 @@ const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
         </Dialog>
     )
 }
-
 const ProjectLinks: React.FC<{ links?: LinksProps }> = ({ links }) => {
     if (!links) return (<></>);
 
@@ -186,7 +192,6 @@ const ProjectLinks: React.FC<{ links?: LinksProps }> = ({ links }) => {
         </div>
     );
 };
-
 const PlayStoreIcon = ({className}:{className: string}) => (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" id="google-play" className={className}>
         <path fill="#2196F3" d="M8.32 7.68.58 15.42c-.37-.35-.57-.83-.57-1.35V1.93C.01 1.4.22.92.6.56l7.72 7.12z"></path>
