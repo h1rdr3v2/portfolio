@@ -27,3 +27,12 @@ export interface Socials {
     name: string;
     url: string;
 }
+
+export interface Role {
+    company: string;
+    title?: string;
+    description?: string[];
+    status?: string;
+    statusColor?: string;
+    period?: string;
+}

@@ -1,5 +1,5 @@
 import "./pagestyle.css"
-import {ProjectInterface, Socials} from "@/types";
+import {ProjectInterface, Role, Socials} from "@/types";
 import QuoteSection from "@/components/QuoteSection";
 import AboutSection from "@/components/AboutSection";
 import IntroSection from "@/components/IntroSection";
@@ -59,6 +59,28 @@ const socials: Socials[] = [
         url: "https://github.com/h1rdr3v2",
     }
 ]
+const currentRoles: Role[] = [
+    {
+        company: "Bleon LTD Collabs",
+        status: "Open for Collaboration",
+        statusColor: "#8ABB4CFF",
+        description: [
+            "As the founder of Bleon, I lead a dynamic team specializing in diverse fields. Each year, we collaborate with innovators and businesses to turn visionary ideas into reality. Our expertise spans modern web and mobile technologies, ensuring scalable and high-performance solutions.",
+            "Interested in working together? schedule a meeting, and let's build something impactful."
+        ],
+    },
+    {
+        company: "HafrikPlay LTD",
+        description: [
+            "HafrikPlay is dedicated to redefining the Afrobeat music scene by providing a platform for emerging artists across Africa.",
+            "We leverage cutting-edge technologies such as Next.js, Expo, React Native, Python, and PHP to create a seamless music streaming experience that empowers artists and connects them with a global audience."
+        ],
+    },
+];
+const formerRoles: Role[] = [
+    { title: "Lead Product Developer", company: "Crash Alerts", period: "2022 — 2024" },
+    { title: "Lead Developer", company: "Softmation", period: "2017 — 2021" },
+];
 
 export default function Home() {
   return (
@@ -69,7 +91,7 @@ export default function Home() {
           <AboutSection />
           <ShowcaseProjectsSection projects={projects} />
           <QuoteSection />
-          <RolesSection />
+          <RolesSection currentRoles={currentRoles} formerRoles={formerRoles} />
           <SocialsSection socials={socials} />
           <FooterSection />
       </main>
