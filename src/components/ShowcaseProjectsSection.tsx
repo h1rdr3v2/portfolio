@@ -152,7 +152,7 @@ const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
                     ))}
                 </div>
                 <DialogClose asChild>
-                    <Button className="mt-4">Close</Button>
+                    <Button className="mt-4 mb-6" style={{marginBottom: 48}}>Close</Button>
                 </DialogClose>
             </DialogContent>
         </Dialog>
