@@ -1,75 +1,18 @@
 "use client"
 
+import Link from "next/link";
 import Image from "next/image";
 import * as React from "react";
 import {GlobeLock} from "lucide-react";
 import {Badge} from "@/components/ui/badge";
 import {Button} from "@/components/ui/button";
+import {CrossFadeImage} from "@/components/CrossFadeImage";
+import {ProjectInterface, ProjectModalProps, ProjectLinksProps} from "@/types"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogClose } from "@/components/ui/dialog";
-import {CrossFadeImage} from "@/components/CrossFadeImage";
-import Link from "next/link";
 
-interface LinksProps {
-    playstore?: string,
-    appstore?: string,
-    website?: string,
-}
-
-interface ProjectInterface {
-    name: string;
-    description: string;
-    images: string[];
-    links?: LinksProps;
-    tools?: string[];
-    content?: ProjectContent[];
-}
-
-interface ProjectContent {
-    body?: string;
-    image?: string;
-}
-
-interface ProjectModalProps {
-    project: ProjectInterface | null;
-    onClose: () => void;
-}
-
-const projects: ProjectInterface[] = [
-    {
-        name: "MyCGPA",
-        description: "A user-friendly mobile app designed to help university students track and calculate their CGPA effortlessly.",
-        images: ["/mycgpa-1.png", "/mycgpa-2.png", "/mycgpa-3.png", "/mycgpa-4.png"],
-        links: {
-            appstore: "https://apps.apple.com/us/app/mycgpa/id6450861410"
-        },
-        tools: ['React Native'],
-        content: [
-            { body: "MyCGPA simplifies GPA calculations, allowing students to efficiently manage their academic performance and make informed course decisions." },
-            { image: "/mycgpa-5.png" },
-            { body: "The screenshot above demonstrates how students can input their course details and instantly receive accurate GPA calculations." }
-        ]
-    },
-    {
-        name: "Watchman Hymns",
-        description: "A digital hymn book app designed to enhance worship experiences in church services.",
-        images: ["/watchman-hymns-4.png", "/watchman-hymns-1.png", "/watchman-hymns-2.png", "/watchman-hymns-3.png"],
-        links: {
-            appstore: "https://apps.apple.com/ng/app/watchmans-hymnal/id6740525384"
-        },
-        tools: ['React Native'],
-        content: [
-            { body: "Watchman Hymns is a voluntary project developed for the Watchman Catholic Charismatic Renewal Movement church, providing easy access to hymns for worship." },
-            { image: "/watchman-hymns-5.png" },
-            { body: "The app features a beautifully designed dark mode for an immersive reading experience." },
-            { image: "/watchman-hymns-3.png" },
-            { body: "It also supports iPads, ensuring a clear and optimized viewing experience on larger screens." }
-        ]
-    }
-];
-
-export default function ShowcaseProjectsSection() {
+export default function ShowcaseProjectsSection({projects}: {projects: ProjectInterface[]}) {
     const [activeProject, setActiveProject] = React.useState<ProjectInterface | null>(null);
 
     return (
@@ -158,7 +101,7 @@ const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
         </Dialog>
     )
 }
-const ProjectLinks: React.FC<{ links?: LinksProps }> = ({ links }) => {
+const ProjectLinks: React.FC<{ links?: ProjectLinksProps }> = ({ links }) => {
     if (!links) return (<></>);
 
     return (
