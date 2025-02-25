@@ -8,8 +8,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 
 const calComUsername = "/destiny-ezenwata/work-chat";
 
-
-
 const RolesSection = ({currentRoles, formerRoles}:{currentRoles: Role[], formerRoles: Role[]}) => {
     const [showFormerRoles, setShowFormerRoles] = useState(false);
 
