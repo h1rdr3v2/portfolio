@@ -1,4 +1,6 @@
 import Link from "next/link";
+import {MapPinned} from "lucide-react"
+import {Badge} from "@/components/ui/badge";
 import {ModeToggle} from "@/components/ModeToggle";
 
 const HeaderSection = () => {
@@ -9,7 +11,7 @@ const HeaderSection = () => {
                     <Link className="text-lg font-black duration-300 motion-reduce:transition-none " href="/">DE.</Link>
                 </div>
                 <div className="flex flex-row gap-2.5 items-center">
-                    <p>Nigeria</p>
+                    <Badge className="text-xs bg-secondary text-secondary-foreground"><MapPinned height={12} width={12} className="mr-1"/>Nigeria</Badge>
                     <ModeToggle />
                 </div>
             </nav>
