@@ -1,10 +1,10 @@
-import me from "../../public/images/me.jpeg";
+import me from "../../../public/images/me.jpeg";
 import Image from "next/image";
 
 const IntroSection = () => {
     return (
         <section className="w-full">
-            <div className="w-full overflow-hidden relative rounded-xl mb-12" style={{ height: "200px"}} >
+            <div className="w-full overflow-hidden relative rounded-xl mb-12" style={{ height: "200px", width: '100%'}} >
                 <Image
                     src={me}
                     alt="My profile picture"
