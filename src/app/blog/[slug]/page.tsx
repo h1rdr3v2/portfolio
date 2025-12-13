@@ -94,20 +94,33 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 						{/* Article Content */}
 						<div
 							className="prose prose-lg dark:prose-invert max-w-none
-                prose-headings:font-bold
-                prose-h1:text-4xl prose-h1:mb-4
-                prose-h2:text-3xl prose-h2:mb-3 prose-h2:mt-8
-                prose-h3:text-2xl prose-h3:mb-2 prose-h3:mt-6
-                prose-p:mb-4 prose-p:leading-relaxed
-                prose-a:text-primary prose-a:no-underline hover:prose-a:underline
-                prose-strong:font-semibold
-                prose-code:bg-muted prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:font-mono prose-code:text-sm
-                prose-pre:bg-muted prose-pre:p-4 prose-pre:rounded-lg prose-pre:overflow-x-auto
-                prose-ul:list-disc prose-ul:pl-6 prose-ul:mb-4
-                prose-ol:list-decimal prose-ol:pl-6 prose-ol:mb-4
-                prose-li:mb-2
-                prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:pl-4 prose-blockquote:italic
-                prose-img:rounded-lg prose-img:shadow-lg"
+								prose-headings:font-bold prose-headings:tracking-tight
+								prose-h1:text-4xl prose-h1:mb-4 prose-h1:mt-8 first:prose-h1:mt-0
+								prose-h2:text-3xl prose-h2:mb-4 prose-h2:mt-10 prose-h2:pb-2 prose-h2:border-b
+								prose-h3:text-2xl prose-h3:mb-3 prose-h3:mt-8
+								prose-h4:text-xl prose-h4:mb-2 prose-h4:mt-6
+								prose-p:mb-4 prose-p:leading-relaxed prose-p:text-foreground
+								prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-a:underline prose-a:decoration-blue-400 prose-a:underline-offset-4
+								hover:prose-a:text-blue-800 dark:hover:prose-a:text-blue-300
+								prose-strong:font-semibold prose-strong:text-foreground
+								prose-code:text-pink-600 dark:prose-code:text-pink-400 
+								prose-code:bg-muted prose-code:px-1.5 prose-code:py-0.5 
+								prose-code:rounded prose-code:font-mono prose-code:text-sm 
+								prose-code:before:content-[''] prose-code:after:content-['']
+								prose-pre:bg-slate-900 dark:prose-pre:bg-slate-950 
+								prose-pre:text-slate-50 prose-pre:border prose-pre:border-slate-800
+								prose-pre:p-4 prose-pre:rounded-lg prose-pre:overflow-x-auto prose-pre:shadow-lg
+								prose-pre:my-6
+								prose-ul:list-disc prose-ul:pl-6 prose-ul:mb-4 prose-ul:space-y-2
+								prose-ol:list-decimal prose-ol:pl-6 prose-ol:mb-4 prose-ol:space-y-2
+								prose-li:text-foreground prose-li:leading-relaxed
+								prose-blockquote:border-l-4 prose-blockquote:border-primary 
+								prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:text-muted-foreground
+								prose-img:rounded-lg prose-img:shadow-lg prose-img:my-8
+								prose-hr:border-border prose-hr:my-8
+								prose-table:border-collapse prose-table:w-full
+								prose-th:border prose-th:border-border prose-th:bg-muted prose-th:p-2
+								prose-td:border prose-td:border-border prose-td:p-2"
 							dangerouslySetInnerHTML={{ __html: post.content }}
 						/>
 					</article>
