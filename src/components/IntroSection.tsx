@@ -1,4 +1,4 @@
-import me from "../../public/me.jpeg";
+import me from "../../public/images/me.jpeg";
 import Image from "next/image";
 
 const IntroSection = () => {
