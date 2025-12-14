@@ -13,7 +13,7 @@ export interface BlogPost {
 	excerpt: string
 	author?: string
 	tags?: string[]
-	[key: string]: any
+	[key: string]: unknown
 }
 
 export interface BlogPostWithContent extends BlogPost {
@@ -134,7 +134,7 @@ export async function getBlogPostBySlug(
 			content: contentHtml,
 			...data,
 		} as BlogPostWithContent
-	} catch  {
+	} catch {
 		return null
 	}
 }
