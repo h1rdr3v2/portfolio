@@ -2,6 +2,10 @@
     cursor: url('../../public/images/nigeria.png') 20 20, auto;;
 }
 
+body{
+    cursor: none;
+}
+
 .waving-hand {
     display: inline-block;
 }
@@ -41,6 +45,3 @@
         opacity: 0;
     }
 }
-/**{*/
-/*    border: 1px black solid;*/
-/*}*/
