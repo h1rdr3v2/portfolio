@@ -6,7 +6,7 @@ import * as React from "react";
 import {GlobeLock} from "lucide-react";
 import {Badge} from "@/components/ui/badge";
 import {Button} from "@/components/ui/button";
-import {CrossFadeImage} from "@/components/CrossFadeImage";
+import {CrossFadeImage} from "@/components/common/CrossFadeImage";
 import {ProjectInterface, ProjectModalProps, ProjectLinksProps} from "@/types"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";

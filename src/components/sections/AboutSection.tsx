@@ -1,4 +1,4 @@
-import WavingText from "@/components/WavingText";
+import WavingText from "@/components/common/WavingText";
 
 const AboutSection = () => {
     return (

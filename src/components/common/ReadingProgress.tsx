@@ -52,7 +52,7 @@ const ReadingProgress = () => {
 					</Button>
 				)}
 
-				<Link href="/" aria-label="Go to home">
+				<Link href="/public" aria-label="Go to home">
 					<Button
 						size="icon"
 						variant="outline"

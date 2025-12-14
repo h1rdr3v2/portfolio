@@ -2,11 +2,11 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import ReadingProgress from "@/components/ReadingProgress"
 import { getBlogPostBySlug, getAllBlogSlugs } from "@/lib/blog"
-import AnimatedBackground from "@/components/AnimatedBackground"
 import HeaderSection from "@/components/sections/HeaderSection";
+import ReadingProgress from "@/components/common/ReadingProgress"
 import { ArrowLeft, CalendarDays, User, Clock } from "lucide-react"
+import AnimatedBackground from "@/components/common/AnimatedBackground"
 
 interface BlogPostPageProps {
 	params: Promise<{ slug: string }>

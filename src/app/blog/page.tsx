@@ -1,18 +1,18 @@
-import Link from "next/link"
-import { getPaginatedBlogPosts } from "@/lib/blog"
 import {
 	Card,
+	CardTitle,
+	CardHeader,
+	CardFooter,
 	CardContent,
 	CardDescription,
-	CardFooter,
-	CardHeader,
-	CardTitle,
 } from "@/components/ui/card"
+import Link from "next/link"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { CalendarDays, User, Sparkles, TrendingUp } from "lucide-react"
+import { getPaginatedBlogPosts } from "@/lib/blog"
 import HeaderSection from "@/components/sections/HeaderSection"
-import AnimatedBackground from "@/components/AnimatedBackground"
+import { CalendarDays, User, Sparkles, TrendingUp } from "lucide-react"
+import AnimatedBackground from "@/components/common/AnimatedBackground"
 
 interface BlogPageProps {
 	searchParams: Promise<{ page?: string }>
