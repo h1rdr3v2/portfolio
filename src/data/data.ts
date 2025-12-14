@@ -6,10 +6,10 @@ export const projects: ProjectInterface[] = [
 		description:
 			"A user-friendly mobile app designed to help university students track and calculate their CGPA effortlessly.",
 		images: [
-			"/mycgpa-1.png",
-			"/mycgpa-2.png",
-			"/mycgpa-3.png",
-			"/mycgpa-4.png",
+			"/images/projects/mycgpa/mycgpa-1.png",
+			"/images/projects/mycgpa/mycgpa-2.png",
+			"/images/projects/mycgpa/mycgpa-3.png",
+			"/images/projects/mycgpa/mycgpa-4.png",
 		],
 		links: {
 			appstore: "https://apps.apple.com/us/app/mycgpa/id6450861410",
@@ -19,7 +19,7 @@ export const projects: ProjectInterface[] = [
 			{
 				body: "MyCGPA simplifies GPA calculations, allowing students to efficiently manage their academic performance and make informed course decisions.",
 			},
-			{ image: "/mycgpa-5.png" },
+			{ image: "/images/projects/mycgpa/mycgpa-5.png" },
 			{
 				body: "The screenshot above demonstrates how students can input their course details and instantly receive accurate GPA calculations.",
 			},
@@ -30,10 +30,10 @@ export const projects: ProjectInterface[] = [
 		description:
 			"A digital hymn book app designed to enhance worship experiences in church services.",
 		images: [
-			"/watchman-hymns-4.png",
-			"/watchman-hymns-1.png",
-			"/watchman-hymns-2.png",
-			"/watchman-hymns-3.png",
+			"/images/projects/watchman-hymns/watchman-hymns-4.png",
+			"/images/projects/watchman-hymns/watchman-hymns-1.png",
+			"/images/projects/watchman-hymns/watchman-hymns-2.png",
+			"/images/projects/watchman-hymns/watchman-hymns-3.png",
 		],
 		links: {
 			appstore: "https://apps.apple.com/ng/app/watchmans-hymnal/id6740525384",
@@ -43,11 +43,11 @@ export const projects: ProjectInterface[] = [
 			{
 				body: "Watchman Hymns is a voluntary project developed for the Watchman Catholic Charismatic Renewal Movement church, providing easy access to hymns for worship.",
 			},
-			{ image: "/watchman-hymns-5.png" },
+			{ image: "/images/projects/watchman-hymns/watchman-hymns-5.png" },
 			{
 				body: "The app features a beautifully designed dark mode for an immersive reading experience.",
 			},
-			{ image: "/watchman-hymns-3.png" },
+			{ image: "/images/projects/watchman-hymns/watchman-hymns-3.png" },
 			{
 				body: "It also supports iPads, ensuring a clear and optimized viewing experience on larger screens.",
 			},
