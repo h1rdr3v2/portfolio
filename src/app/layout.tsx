@@ -30,7 +30,7 @@ export const metadata: Metadata = {
 		title: "Destiny Ezenwata - Software Developer <> Mobile App Developer",
 		description:
 			"Portfolio of Destiny Ezenwata - Full-stack developer specializing in React, Next.js, and mobile development",
-		creator: "@destinyezenwata",
+		creator: "@JustDevEze",
 	},
 	icons: {
 		icon: "/icons/favicon-32x32.png", // Default favicon
