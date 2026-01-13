@@ -3,7 +3,7 @@ import { notFound } from "next/navigation"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { getBlogPostBySlug, getAllBlogSlugs } from "@/lib/blog"
-import HeaderSection from "@/components/sections/HeaderSection";
+import HeaderSection from "@/components/sections/HeaderSection"
 import ReadingProgress from "@/components/common/ReadingProgress"
 import { ArrowLeft, CalendarDays, User, Clock } from "lucide-react"
 import AnimatedBackground from "@/components/common/AnimatedBackground"
@@ -36,9 +36,36 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
 		}
 	}
 
+	const twitter = post.twitter as
+		| {
+				card?: string
+				title?: string
+				description?: string
+				image?: string
+				creator?: string
+		  }
+		| undefined
+	const image = post.image as string | undefined
+
 	return {
 		title: post.title,
 		description: post.excerpt,
+		openGraph: {
+			title: post.title,
+			description: post.excerpt,
+			type: "article",
+			publishedTime: post.date,
+			authors: post.author ? [post.author] : undefined,
+			tags: post.tags,
+			images: image ? [{ url: image }] : undefined,
+		},
+		twitter: {
+			card: twitter?.card || "summary_large_image",
+			title: twitter?.title || post.title,
+			description: twitter?.description || post.excerpt,
+			images: twitter?.image || image ? [twitter?.image || image] : undefined,
+			creator: twitter?.creator,
+		},
 	}
 }
 
@@ -62,7 +89,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 					<div className="max-w-4xl mx-auto">
 						{/* Back Button */}
 						<Link href="/blog" className="inline-block mb-8 animate-fadeInUp">
-							<Button variant="ghost" size="sm" className="hover:translate-x-[-4px] transition-transform">
+							<Button
+								variant="ghost"
+								size="sm"
+								className="hover:translate-x-[-4px] transition-transform"
+							>
 								<ArrowLeft className="h-4 w-4 mr-2" />
 								Back to Blog
 							</Button>
@@ -153,15 +184,16 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 						{/* Back Button at Bottom */}
 						<div className="mt-16 pt-8 border-t flex justify-between items-center">
 							<Link href="/blog">
-								<Button variant="outline" className="hover:translate-x-[-4px] transition-transform">
+								<Button
+									variant="outline"
+									className="hover:translate-x-[-4px] transition-transform"
+								>
 									<ArrowLeft className="h-4 w-4 mr-2" />
 									Back to Blog
 								</Button>
 							</Link>
 							<Link href="/">
-								<Button variant="ghost">
-									Home
-								</Button>
+								<Button variant="ghost">Home</Button>
 							</Link>
 						</div>
 					</div>

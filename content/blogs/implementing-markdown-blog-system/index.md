@@ -4,6 +4,13 @@ date: "2025-12-14"
 excerpt: "A comprehensive guide to building a fully-featured blog system using markdown files, Next.js 15 App Router, and TypeScript. Learn how to implement file-based routing, metadata extraction, and beautiful typography."
 author: "Destiny Ezenwata"
 tags: ["Next.js", "TypeScript", "Markdown", "React", "Blog"]
+image: "/blog-images/implementing-markdown-blog-system/preview.jpg"
+twitter:
+  card: "summary_large_image"
+  title: "Building a Markdown-Based Blog System in Next.js 15"
+  description: "A comprehensive guide to building a fully-featured blog system using markdown files, Next.js 15 App Router, and TypeScript"
+  image: "/blog-images/implementing-markdown-blog-system/preview.jpg"
+  creator: "@JustDevEze"
 ---
 
 # Building a Markdown-Based Blog System in Next.js 15

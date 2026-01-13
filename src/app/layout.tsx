@@ -17,6 +17,21 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
 	title: "Destiny Ezenwata - Software Developer <> Mobile App Developer",
 	description: "Portfolio of Destiny Ezenwata",
+	openGraph: {
+		title: "Destiny Ezenwata - Software Developer <> Mobile App Developer",
+		description:
+			"Portfolio of Destiny Ezenwata - Full-stack developer specializing in React, Next.js, and mobile development",
+		type: "website",
+		locale: "en_US",
+		siteName: "Destiny Ezenwata Portfolio",
+	},
+	twitter: {
+		card: "summary_large_image",
+		title: "Destiny Ezenwata - Software Developer <> Mobile App Developer",
+		description:
+			"Portfolio of Destiny Ezenwata - Full-stack developer specializing in React, Next.js, and mobile development",
+		creator: "@destinyezenwata",
+	},
 	icons: {
 		icon: "/icons/favicon-32x32.png", // Default favicon
 		apple: [
