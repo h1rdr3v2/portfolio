@@ -5,7 +5,7 @@ const FooterSection = () => {
             <div className="flex flex-col gap-2.5 items-center">
                 <SignatureSvg  />
                 <p className="text-center text-gray-500 italic text-xs">Copyrights &copy; {currentYear} — Developed by Destiny</p>
-                <p className="text-center text-foreground font-medium text-sm">deveze.bleon.co</p>
+                <p className="text-center text-foreground font-medium text-sm">deveze.bleon.net</p>
             </div>
         </footer>
     );
