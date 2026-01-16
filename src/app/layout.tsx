@@ -26,7 +26,7 @@ export const metadata: Metadata = {
 		siteName: "Destiny Ezenwata Portfolio",
 		images: [
 			{
-				url: "/images/portfolio-shot.png",
+				url: "https://deveze.bleon.net/images/portfolio-shot.png",
 				width: 1200,
 				height: 630,
 				alt: "Destiny Ezenwata Portfolio",
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
 		description:
 			"Portfolio of Destiny Ezenwata - Full-stack developer specializing in React, Next.js, and mobile development",
 		creator: "@JustDevEze",
-		images: ["/images/portfolio-shot.png"],
+		images: ["https://deveze.bleon.net/images/portfolio-shot.png"],
 	},
 	icons: {
 		icon: "/icons/favicon-32x32.png", // Default favicon
