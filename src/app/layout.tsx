@@ -37,7 +37,7 @@ export const metadata: Metadata = {
 		card: "summary_large_image",
 		title: "Destiny Ezenwata - Software Developer <> Mobile App Developer",
 		description:
-			"Portfolio of Destiny Ezenwata - Full-stack developer specializing in React, Next.js, and mobile development",
+			"Portfolio of Destiny Ezenwata - Full-stack developer specializing in React, Next.js, and Mobile development Using Expo and React Native",
 		creator: "@JustDevEze",
 		images: ["https://deveze.bleon.net/images/portfolio-shot.png"],
 	},
