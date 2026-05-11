@@ -3,6 +3,7 @@
 # dependencies
 node_modules
 .tanstack
+dist
 /.pnp
 .pnp.*
 .yarn/*

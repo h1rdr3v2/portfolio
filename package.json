@@ -4,7 +4,8 @@
 	"type": "module",
 	"scripts": {
 		"dev": "vite dev",
-		"build": "vite build"
+		"build": "vite build",
+		"start": "node dist/server/server.js"
 	},
 	"dependencies": {
 		"@calcom/embed-react": "^1.5.2",
