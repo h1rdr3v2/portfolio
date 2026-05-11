@@ -1,14 +1,20 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { createPortal } from "react-dom"
 
 const CustomCursor = () => {
 	const [position, setPosition] = useState({ x: 0, y: 0 })
 	const [isPointer, setIsPointer] = useState(false)
 	const [isVisible, setIsVisible] = useState(false)
+	const [mounted, setMounted] = useState(false)
 
 	useEffect(() => {
-		// Only show on desktop
+		setMounted(true)
+	}, [])
+
+	useEffect(() => {
+		if (!mounted) return
 		const isTouchDevice = window.matchMedia("(pointer: coarse)").matches
 		if (isTouchDevice) return
 
@@ -39,15 +45,14 @@ const CustomCursor = () => {
 			window.removeEventListener("mousemove", handleMouseMove)
 			document.removeEventListener("mouseleave", handleMouseLeave)
 		}
-	}, [])
+	}, [mounted])
 
-	if (!isVisible) return null
+	if (!mounted || !isVisible) return null
 
-	return (
+	return createPortal(
 		<>
-			{/* Main cursor dot */}
 			<div
-				className="fixed pointer-events-none z-[9999] mix-blend-difference"
+				className="fixed pointer-events-none z-[99999] mix-blend-difference"
 				style={{
 					left: `${position.x}px`,
 					top: `${position.y}px`,
@@ -61,9 +66,8 @@ const CustomCursor = () => {
 				/>
 			</div>
 
-			{/* Outer ring */}
 			<div
-				className="fixed pointer-events-none z-[9998] mix-blend-difference"
+				className="fixed pointer-events-none z-[99998] mix-blend-difference"
 				style={{
 					left: `${position.x}px`,
 					top: `${position.y}px`,
@@ -80,7 +84,8 @@ const CustomCursor = () => {
 					}}
 				/>
 			</div>
-		</>
+		</>,
+		document.body,
 	)
 }
 

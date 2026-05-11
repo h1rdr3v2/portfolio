@@ -1,6 +1,5 @@
 "use client"
 
-import Link from "next/link"
 import * as React from "react"
 import {
 	Github,
@@ -13,7 +12,6 @@ import {
 } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { CrossFadeImage } from "@/components/common/CrossFadeImage"
 import { ProjectInterface, ProjectLinksProps, ProjectCategory } from "@/types"
 import Lightbox from "yet-another-react-lightbox"
 import "yet-another-react-lightbox/styles.css"
@@ -25,19 +23,19 @@ const categories: {
 }[] = [
 	{
 		key: "mobile",
-		label: "Mobile Apps",
+		label: "Mobile App",
 		icon: <Smartphone className="w-5 h-5" />,
-	},
-	{ key: "bot", label: "Bots", icon: <Bot className="w-5 h-5" /> },
-	{
-		key: "api",
-		label: "APIs & Infrastructure",
-		icon: <Server className="w-5 h-5" />,
 	},
 	{
 		key: "website",
 		label: "Websites",
 		icon: <Globe className="w-5 h-5" />,
+	},
+	{ key: "bot", label: "Bots", icon: <Bot className="w-5 h-5" /> },
+	{
+		key: "api",
+		label: "API",
+		icon: <Server className="w-5 h-5" />,
 	},
 ]
 
@@ -89,6 +87,21 @@ export default function ShowcaseProjectsSection({
 		})
 	}
 
+	const [isSticky, setIsSticky] = React.useState(false)
+	const sectionRef = React.useRef<HTMLDivElement>(null)
+
+	React.useEffect(() => {
+		const handleScroll = () => {
+			if (sectionRef.current) {
+				const rect = sectionRef.current.getBoundingClientRect()
+				// Stick when the tabs reach the header (header is ~64px)
+				setIsSticky(rect.top <= 64)
+			}
+		}
+		window.addEventListener("scroll", handleScroll, { passive: true })
+		return () => window.removeEventListener("scroll", handleScroll)
+	}, [])
+
 	const activeProjects = projects.filter((p) => p.category === activeCategory)
 
 	return (
@@ -96,7 +109,14 @@ export default function ShowcaseProjectsSection({
 			<Badge variant="default">Projects</Badge>
 
 			{/* Category horizontal selector */}
-			<div className="relative mt-6">
+			<div
+				ref={sectionRef}
+				className={`relative mt-4 z-40 transition-all duration-200 pt-2 ${
+					isSticky
+						? "sticky top-[62px] sm:-mx-0 sm:px-0 bg-background/90 backdrop-blur-lg shadow-sm"
+						: ""
+				}`}
+			>
 				<div
 					ref={navRef}
 					className="flex gap-1 overflow-x-auto pb-3 scrollbar-hide"
@@ -134,75 +154,129 @@ export default function ShowcaseProjectsSection({
 				/>
 			</div>
 
-			{/* Projects list — full width, vertical */}
-			<div className="mt-6 space-y-5">
+			{/* Projects list — image then text, no card */}
+			<div className="mt-8 space-y-16">
 				{activeProjects.map((project) => (
-					<ProjectDetailCard key={project.name} project={project} />
+					<ProjectItem key={project.name} project={project} />
 				))}
 			</div>
 		</section>
 	)
 }
 
-function ProjectDetailCard({ project }: { project: ProjectInterface }) {
+function ProjectItem({ project }: { project: ProjectInterface }) {
 	const [lightboxOpen, setLightboxOpen] = React.useState(false)
+	const [lightboxIndex, setLightboxIndex] = React.useState(0)
+	const [activeImageIndex, setActiveImageIndex] = React.useState(0)
 
 	const slides = project.images?.map((src) => ({ src })) ?? []
+	const images = project.images ?? []
 
 	return (
-		<div className="rounded-2xl border bg-card overflow-hidden animate-fadeInCard">
-			<div className="flex gap-5 p-5 sm:p-6">
-				{/* Thumbnail on left */}
-				{project.images && project.images.length > 0 ? (
-					<div className="shrink-0">
-						<CrossFadeImage
-							images={project.images}
-							thumbnail
+		<div className="group">
+			{/* Image on top — theme-dependent border */}
+			{images.length > 0 ? (
+				<div className="relative mb-5">
+					{/* Main preview image */}
+					<div
+						className="relative overflow-hidden rounded-lg border-2 border-black dark:border-white cursor-pointer"
+						onClick={() => {
+							setLightboxIndex(activeImageIndex)
+							setLightboxOpen(true)
+						}}
+					>
+						<img
+							src={images[activeImageIndex]}
 							alt={project.name}
-							onClick={() => setLightboxOpen(true)}
+							className="w-full h-auto max-h-[572px] object-cover object-top transition-transform duration-500 group-hover:scale-[1.02]"
 						/>
 					</div>
-				) : (
-					<div className="shrink-0 w-[120px] h-[120px] rounded-xl bg-muted/60 flex items-center justify-center">
-						<span className="text-3xl font-bold text-muted-foreground/20 select-none">
-							{project.name.charAt(0)}
-						</span>
+
+					{/* Thumbnail strip — max 4 + overflow */}
+					{images.length > 1 && (
+						<div className="flex gap-2 mt-2 overflow-x-auto">
+							{images.slice(0, 4).map((img, i) => (
+								<button
+									key={img}
+									onClick={(e) => {
+										e.stopPropagation()
+										setActiveImageIndex(i)
+									}}
+									className={`shrink-0 overflow-hidden rounded-md border-2 transition-colors ${
+										i === activeImageIndex
+											? "border-black dark:border-white"
+											: "border-black/20 dark:border-white/20 hover:border-black dark:hover:border-white"
+									}`}
+								>
+									<img
+										src={img}
+										alt={`${project.name} screenshot ${i + 1}`}
+										className="w-16 h-16 object-cover"
+									/>
+								</button>
+							))}
+							{images.length > 4 && (
+								<button
+									onClick={(e) => {
+										e.stopPropagation()
+										setLightboxIndex(0)
+										setLightboxOpen(true)
+									}}
+									className="shrink-0 w-16 h-16 rounded-md border-2 border-black/20 dark:border-white/20 flex items-center justify-center text-xs text-muted-foreground hover:border-black dark:hover:border-white transition-colors"
+								>
+									+{images.length - 4}
+								</button>
+							)}
+						</div>
+					)}
+				</div>
+			) : (
+				<div className="mb-5 w-full h-48 rounded-lg border-2 border-black dark:border-white bg-muted/30 flex items-center justify-center">
+					<span className="text-5xl font-bold text-muted-foreground/20 select-none">
+						{project.name.charAt(0)}
+					</span>
+				</div>
+			)}
+
+			{/* Text below image */}
+			<div className="space-y-3">
+				{/* Title + Year */}
+				<div className="flex flex-wrap items-center gap-3">
+					<h3 className="text-2xl font-bold leading-tight">{project.name}</h3>
+					<Badge variant="outline" className="text-[11px] font-normal">
+						{project.year}
+					</Badge>
+				</div>
+
+				{/* Description */}
+				{project.description && (
+					<p className="text-sm text-muted-foreground leading-relaxed">
+						{project.description}
+					</p>
+				)}
+
+				{/* Story */}
+				<p className="text-sm leading-relaxed text-foreground/80 italic">
+					&ldquo;{project.story}&rdquo;
+				</p>
+
+				{/* Tech stack */}
+				{project.tools && project.tools.length > 0 && (
+					<div className="flex flex-wrap gap-1.5">
+						{project.tools.map((tool, i) => (
+							<Badge
+								key={i}
+								variant="secondary"
+								className="text-[11px] font-normal"
+							>
+								{tool}
+							</Badge>
+						))}
 					</div>
 				)}
 
-				{/* Content on right */}
-				<div className="flex-1 min-w-0 space-y-3">
-					{/* Title row */}
-					<div className="flex flex-wrap items-center gap-3">
-						<h4 className="text-lg font-bold leading-tight">{project.name}</h4>
-						<Badge variant="outline" className="text-[11px] font-normal">
-							{project.year}
-						</Badge>
-					</div>
-
-					{/* Story */}
-					<p className="text-sm leading-relaxed text-muted-foreground">
-						&ldquo;{project.story}&rdquo;
-					</p>
-
-					{/* Tech stack */}
-					{project.tools && project.tools.length > 0 && (
-						<div className="flex flex-wrap gap-1.5">
-							{project.tools.map((tool, i) => (
-								<Badge
-									key={i}
-									variant="secondary"
-									className="text-[11px] font-normal"
-								>
-									{tool}
-								</Badge>
-							))}
-						</div>
-					)}
-
-					{/* Links */}
-					<ProjectLinks links={project.links} />
-				</div>
+				{/* Links */}
+				<ProjectLinks links={project.links} />
 			</div>
 
 			{/* Lightbox */}
@@ -211,6 +285,7 @@ function ProjectDetailCard({ project }: { project: ProjectInterface }) {
 					open={lightboxOpen}
 					close={() => setLightboxOpen(false)}
 					slides={slides}
+					index={lightboxIndex}
 				/>
 			)}
 		</div>
@@ -230,7 +305,7 @@ const ProjectLinks: React.FC<{ links?: ProjectLinksProps }> = ({ links }) => {
 	if (!hasAny) return null
 
 	return (
-		<div className="flex flex-wrap items-center gap-3 pt-2">
+		<div className="flex flex-wrap items-center gap-3 pt-1">
 			{links.github && (
 				<Button
 					variant="outline"
@@ -238,66 +313,10 @@ const ProjectLinks: React.FC<{ links?: ProjectLinksProps }> = ({ links }) => {
 					className="h-8 text-xs gap-1.5"
 					asChild
 				>
-					<Link href={links.github} target="_blank" rel="noopener noreferrer">
+					<a href={links.github} target="_blank" rel="noopener noreferrer">
 						<Github className="w-3.5 h-3.5" />
 						GitHub
-					</Link>
-				</Button>
-			)}
-			{links.telegram && (
-				<Button
-					variant="outline"
-					size="sm"
-					className="h-8 text-xs gap-1.5"
-					asChild
-				>
-					<Link href={links.telegram} target="_blank" rel="noopener noreferrer">
-						<TelegramIcon className="w-3.5 h-3.5" />
-						Telegram
-					</Link>
-				</Button>
-			)}
-			{links.whatsapp && (
-				<Button
-					variant="outline"
-					size="sm"
-					className="h-8 text-xs gap-1.5"
-					asChild
-				>
-					<Link href={links.whatsapp} target="_blank" rel="noopener noreferrer">
-						<MessageCircle className="w-3.5 h-3.5" />
-						WhatsApp
-					</Link>
-				</Button>
-			)}
-			{links.appstore && (
-				<Button
-					variant="outline"
-					size="sm"
-					className="h-8 text-xs gap-1.5"
-					asChild
-				>
-					<Link href={links.appstore} target="_blank" rel="noopener noreferrer">
-						<AppStoreIcon className="w-3.5 h-3.5" />
-						App Store
-					</Link>
-				</Button>
-			)}
-			{links.playstore && (
-				<Button
-					variant="outline"
-					size="sm"
-					className="h-8 text-xs gap-1.5"
-					asChild
-				>
-					<Link
-						href={links.playstore}
-						target="_blank"
-						rel="noopener noreferrer"
-					>
-						<PlayStoreIcon className="w-3.5 h-3.5" />
-						Play Store
-					</Link>
+					</a>
 				</Button>
 			)}
 			{links.website && (
@@ -307,71 +326,83 @@ const ProjectLinks: React.FC<{ links?: ProjectLinksProps }> = ({ links }) => {
 					className="h-8 text-xs gap-1.5"
 					asChild
 				>
-					<Link href={links.website} target="_blank" rel="noopener noreferrer">
+					<a href={links.website} target="_blank" rel="noopener noreferrer">
 						<GlobeLock className="w-3.5 h-3.5" />
 						Website
-					</Link>
+					</a>
+				</Button>
+			)}
+			{links.appstore && (
+				<Button
+					variant="outline"
+					size="sm"
+					className="h-8 text-xs gap-1.5"
+					asChild
+				>
+					<a href={links.appstore} target="_blank" rel="noopener noreferrer">
+						<AppStoreIcon className="w-3.5 h-3.5" />
+						App Store
+					</a>
+				</Button>
+			)}
+			{links.playstore && (
+				<Button
+					variant="outline"
+					size="sm"
+					className="h-8 text-xs gap-1.5"
+					asChild
+				>
+					<a href={links.playstore} target="_blank" rel="noopener noreferrer">
+						<PlayStoreIcon className="w-3.5 h-3.5" />
+						Play Store
+					</a>
+				</Button>
+			)}
+			{links.telegram && (
+				<Button
+					variant="outline"
+					size="sm"
+					className="h-8 text-xs gap-1.5"
+					asChild
+				>
+					<a href={links.telegram} target="_blank" rel="noopener noreferrer">
+						<TelegramIcon className="w-3.5 h-3.5" />
+						Telegram
+					</a>
+				</Button>
+			)}
+			{links.whatsapp && (
+				<Button
+					variant="outline"
+					size="sm"
+					className="h-8 text-xs gap-1.5"
+					asChild
+				>
+					<a href={links.whatsapp} target="_blank" rel="noopener noreferrer">
+						<MessageCircle className="w-3.5 h-3.5" />
+						WhatsApp
+					</a>
 				</Button>
 			)}
 		</div>
 	)
 }
 
-const PlayStoreIcon = ({ className }: { className: string }) => (
-	<svg
-		xmlns="http://www.w3.org/2000/svg"
-		viewBox="0 0 16 16"
-		id="google-play"
-		className={className}
-	>
-		<path
-			fill="#2196F3"
-			d="M8.32 7.68.58 15.42c-.37-.35-.57-.83-.57-1.35V1.93C.01 1.4.22.92.6.56l7.72 7.12z"
-		></path>
-		<path
-			fill="#FFC107"
-			d="M15.01 8c0 .7-.38 1.32-1.01 1.67l-2.2 1.22-2.73-2.52-.75-.69 2.89-2.89L14 6.33c.63.35 1.01.97 1.01 1.67z"
-		></path>
-		<path
-			fill="#4CAF50"
-			d="M8.32 7.68.6.56C.7.46.83.37.96.29 1.59-.09 2.35-.1 3 .26l8.21 4.53-2.89 2.89z"
-		></path>
-		<path
-			fill="#F44336"
-			d="M11.8 10.89 3 15.74c-.31.18-.66.26-1 .26-.36 0-.72-.09-1.04-.29a1.82 1.82 0 0 1-.38-.29l7.74-7.74.75.69 2.73 2.52z"
-		></path>
-	</svg>
-)
-const TelegramIcon = ({ className }: { className: string }) => (
-	<svg
-		xmlns="http://www.w3.org/2000/svg"
-		viewBox="0 0 24 24"
-		className={className}
-	>
-		<path
-			fill="currentColor"
-			d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"
-		/>
+// Simple SVG icons
+const TelegramIcon = ({ className }: { className?: string }) => (
+	<svg className={className} viewBox="0 0 24 24" fill="currentColor">
+		<path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.938z" />
 	</svg>
 )
 
-const AppStoreIcon = ({ className }: { className: string }) => (
-	<svg
-		xmlns="http://www.w3.org/2000/svg"
-		viewBox="0 0 24 24"
-		className={className}
-	>
-		<path
-			fill="#2196F3"
-			d="M14.096 14.995c.43-.807-.126-1.974-1.118-1.974H9.915l4.234-7.331a.989.989 0 0 0-1.713-.987l-.44.758-.429-.757a.988.988 0 1 0-1.713.987l1.007 1.747-3.223 5.584H5.12a.986.986 0 1 0 0 1.974h8.976z"
-		></path>
-		<path
-			fill="#2196F3"
-			d="M12 24c6.629 0 12-5.371 12-12S18.629 0 12 0 0 5.371 0 12s5.371 12 12 12zm0-22.452c5.743 0 10.452 4.65 10.452 10.452 0 5.743-4.65 10.452-10.452 10.452-5.743 0-10.452-4.65-10.452-10.452C1.548 6.256 6.199 1.548 12 1.548z"
-		></path>
-		<path
-			fill="#2196F3"
-			d="m6.231 15.451-.706 1.219a.988.988 0 1 0 1.713.987l.949-1.645-.001.001c-.513-.62-1.162-.809-1.955-.562zm7.22-7.458c-.586.484-1.177 1.916-.349 3.343.807 1.404 2.027 3.509 3.648 6.319a.989.989 0 0 0 1.713-.987L17.501 15h1.428a.986.986 0 1 0 0-1.974H16.36v-.001c-1.292-2.24-2.26-3.919-2.909-5.032z"
-		></path>
+const AppStoreIcon = ({ className }: { className?: string }) => (
+	<svg className={className} viewBox="0 0 24 24" fill="currentColor">
+		<path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.12 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+	</svg>
+)
+
+const PlayStoreIcon = ({ className }: { className?: string }) => (
+	<svg className={className} viewBox="0 0 24 24" fill="currentColor">
+		<path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l2.807 1.626a1 1 0 010 1.732l-2.807 1.626L15.206 12l2.492-2.492zM5.864 2.658L16.802 8.99l-2.303 2.303-8.635-8.635z" />
 	</svg>
 )

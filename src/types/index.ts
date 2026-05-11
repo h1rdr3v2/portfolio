@@ -1,6 +1,6 @@
 export interface ProjectLinksProps {
-	playstore?: string
 	appstore?: string
+	playstore?: string
 	website?: string
 	github?: string
 	telegram?: string
@@ -13,7 +13,6 @@ export interface ProjectInterface {
 	name: string
 	description?: string
 	images?: string[]
-	logo?: string
 	links?: ProjectLinksProps
 	tools?: string[]
 	year: string
@@ -27,10 +26,10 @@ export interface Socials {
 }
 
 export interface Role {
-	company: string
 	title?: string
-	description?: string[]
+	company?: string
+	period?: string
 	status?: string
 	statusColor?: string
-	period?: string
+	description?: string[]
 }

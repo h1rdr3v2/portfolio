@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import Link from "next/link"
+import { Link } from "@tanstack/react-router"
 import { Home, ArrowUp } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
@@ -31,7 +31,6 @@ const ReadingProgress = () => {
 
 	return (
 		<>
-			{/* Reading Progress Bar */}
 			<div className="fixed top-0 left-0 right-0 h-1 bg-muted z-50">
 				<div
 					className="h-full bg-primary transition-all duration-150 ease-out"
@@ -39,7 +38,6 @@ const ReadingProgress = () => {
 				/>
 			</div>
 
-			{/* Floating Action Buttons */}
 			<div className="fixed bottom-8 right-8 flex flex-col gap-3 z-40">
 				{showScrollTop && (
 					<Button
@@ -52,7 +50,7 @@ const ReadingProgress = () => {
 					</Button>
 				)}
 
-				<Link href="/public" aria-label="Go to home">
+				<Link to="/" aria-label="Go to home">
 					<Button
 						size="icon"
 						variant="outline"

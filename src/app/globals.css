@@ -6,14 +6,14 @@
 
 @layer base {
 	:root {
-		--background: hsl(0 0% 100%);
-		--foreground: hsl(0, 0%, 3.9%);
-		--card: hsl(0 0% 97%);
-		--card-foreground: hsl(215 27.9% 7.9%);
+		--background: 0 0% 100%;
+		--foreground: 0 0% 3.9%;
+		--card: 0 0% 97%;
+		--card-foreground: 215 27.9% 7.9%;
 		--popover: 0 0% 100%;
 		--popover-foreground: 0 0% 3.9%;
-		--primary: hsl(0 0% 3.9%);
-		--primary-foreground: hsl(0 0% 100%);
+		--primary: 0 0% 3.9%;
+		--primary-foreground: 0 0% 100%;
 		--secondary: 0 0% 96.1%;
 		--secondary-foreground: 0 0% 9%;
 		--muted: 0 0% 96.1%;
@@ -33,14 +33,14 @@
 		--radius: 0.5rem;
 	}
 	.dark {
-		--background: hsl(255 75% 4%);
-		--foreground: hsl(0, 0%, 100%);
-		--card: hsl(215 27.9% 7.9%);
-		--card-foreground: hsl(210 20% 98%);
+		--background: 255 75% 4%;
+		--foreground: 0 0% 100%;
+		--card: 215 27.9% 7.9%;
+		--card-foreground: 210 20% 98%;
 		--popover: 0 0% 3.9%;
 		--popover-foreground: 0 0% 98%;
-		--primary: hsl(0 0% 98%);
-		--primary-foreground: hsl(255 75% 4%);
+		--primary: 0 0% 98%;
+		--primary-foreground: 255 75% 4%;
 		--secondary: 0 0% 14.9%;
 		--secondary-foreground: 0 0% 98%;
 		--muted: 0 0% 14.9%;
@@ -159,10 +159,10 @@
 	}
 
 	::-webkit-scrollbar-thumb {
-		@apply bg-muted-foreground/30 rounded-full;
+		@apply bg-muted-foreground/20 rounded-full;
 	}
 
 	::-webkit-scrollbar-thumb:hover {
-		@apply bg-muted-foreground/50;
+		@apply bg-muted-foreground/40;
 	}
 }

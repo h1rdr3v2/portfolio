@@ -16,7 +16,6 @@ const AnimatedBackground = () => {
 
 	return (
 		<div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
-			{/* Gradient orbs */}
 			<div
 				className="absolute top-0 left-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl animate-pulse"
 				style={{
@@ -43,7 +42,6 @@ const AnimatedBackground = () => {
 				}}
 			/>
 
-			{/* Grid pattern */}
 			<div
 				className="absolute inset-0 opacity-[0.02] dark:opacity-[0.03]"
 				style={{

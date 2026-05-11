@@ -248,6 +248,7 @@ export const projects: ProjectInterface[] = [
 		category: "website",
 	},
 ]
+
 export const socials: Socials[] = [
 	{
 		name: "linkedin",
@@ -270,6 +271,7 @@ export const socials: Socials[] = [
 		url: "https://github.com/h1rdr3v2",
 	},
 ]
+
 export const currentRoles: Role[] = [
 	{
 		company: "Bleon LTD Collabs",
@@ -288,6 +290,7 @@ export const currentRoles: Role[] = [
 		],
 	},
 ]
+
 export const formerRoles: Role[] = [
 	{
 		title: "CEO & Mobile App Developer",
@@ -299,5 +302,9 @@ export const formerRoles: Role[] = [
 		company: "Crash Alerts",
 		period: "2022 — 2024",
 	},
-	{ title: "Lead Developer", company: "Softmation", period: "2017 — 2021" },
+	{
+		title: "Lead Developer",
+		company: "Softmation",
+		period: "2017 — 2021",
+	},
 ]

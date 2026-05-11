@@ -1,5 +1,4 @@
 "use client"
-import Image from "next/image"
 import { useEffect, useState } from "react"
 
 interface CrossFadeImageProps {
@@ -58,17 +57,10 @@ export function CrossFadeImage({
 			onClick={onClick}
 		>
 			{images.map((image, index) => (
-				<Image
+				<img
 					key={index}
 					src={image}
 					alt={alt}
-					width={dimensions.width}
-					height={dimensions.height}
-					sizes={
-						thumbnail
-							? "120px"
-							: "(max-width: 640px) 320px, (max-width: 1024px) 500px, 700px"
-					}
 					className={`absolute top-0 left-0 fade-image ${
 						thumbnail ? "rounded-xl" : "rounded-t-lg"
 					}`}
@@ -78,7 +70,6 @@ export function CrossFadeImage({
 						height: "100%",
 						animationDelay: `${-2 * (images.length - 1 - index)}s`,
 					}}
-					priority
 				/>
 			))}
 		</div>

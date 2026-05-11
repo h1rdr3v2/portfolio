@@ -1,4 +1,5 @@
-import "./pagestyle.css"
+import { createFileRoute } from "@tanstack/react-router"
+import "../app/pagestyle.css"
 import QuoteSection from "@/components/sections/QuoteSection"
 import AboutSection from "@/components/sections/AboutSection"
 import IntroSection from "@/components/sections/IntroSection"
@@ -9,11 +10,15 @@ import SocialsSection from "@/components/sections/SocialsSection"
 import { currentRoles, formerRoles, projects, socials } from "@/data/data"
 import ShowcaseProjectsSection from "@/components/sections/ShowcaseProjectsSection"
 
-export default function Home() {
+export const Route = createFileRoute("/")({
+	component: Home,
+})
+
+function Home() {
 	return (
 		<>
 			<HeaderSection />
-			<main className="min-h-screen max-w-xl mx-auto w-full flex flex-col justify-start gap-16 items-center pt-24 md:pt-28 pb-16 px-6 sm:px-0 font-[family-name:var(--font-geist-sans)] relative">
+			<main className="min-h-screen max-w-xl mx-auto w-full flex flex-col justify-start gap-16 items-center pt-24 md:pt-28 pb-16 px-6 sm:px-0 relative">
 				<div className="animate-fadeInUp w-full">
 					<IntroSection />
 				</div>

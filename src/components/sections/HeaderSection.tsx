@@ -1,18 +1,18 @@
 "use client"
 
-import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { Link, useLocation } from "@tanstack/react-router"
 import { MapPinned, Home, Sparkles } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { ModeToggle } from "@/components/ModeToggle"
 import { useEffect, useState } from "react"
 
 const HeaderSection = () => {
-	const pathname = usePathname()
+	const location = useLocation()
+	const pathname = location.pathname
 	const [isScrolled, setIsScrolled] = useState(false)
 	const isHomePage = pathname === "/"
 	const isBlogPage = pathname.startsWith("/blog")
-	
+
 	useEffect(() => {
 		const handleScroll = () => {
 			setIsScrolled(window.scrollY > 20)
@@ -20,7 +20,7 @@ const HeaderSection = () => {
 		window.addEventListener("scroll", handleScroll)
 		return () => window.removeEventListener("scroll", handleScroll)
 	}, [])
-	
+
 	return (
 		<header
 			className={`w-full fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out ${
@@ -35,7 +35,7 @@ const HeaderSection = () => {
 						className={`text-xl font-black duration-300 hover:scale-110 transition-all flex items-center gap-2 group ${
 							isScrolled ? "text-foreground" : ""
 						}`}
-						href="/"
+						to="/"
 					>
 						<span className="relative">
 							DE.
@@ -49,7 +49,9 @@ const HeaderSection = () => {
 							{pathname.split("/")[2] && (
 								<>
 									<span>/</span>
-									<span className="capitalize truncate max-w-[150px]">{pathname.split("/")[2]}</span>
+									<span className="capitalize truncate max-w-[150px]">
+										{pathname.split("/")[2]}
+									</span>
 								</>
 							)}
 						</div>
@@ -58,7 +60,7 @@ const HeaderSection = () => {
 				<div className="flex flex-row gap-3 items-center">
 					{!isHomePage && (
 						<Link
-							href="/"
+							to="/"
 							className="text-sm font-medium hover:text-primary transition-all flex items-center gap-1.5 group"
 						>
 							<Home className="h-4 w-4 group-hover:scale-110 transition-transform" />
@@ -67,7 +69,7 @@ const HeaderSection = () => {
 					)}
 					{!isBlogPage && (
 						<Link
-							href="/blog"
+							to="/blog"
 							className="text-sm font-medium hover:text-primary transition-all flex items-center gap-1.5 group relative"
 						>
 							<Sparkles className="h-4 w-4 group-hover:rotate-12 transition-transform" />
