@@ -84,6 +84,24 @@ export const projects: ProjectInterface[] = [
 			"My first official mobile app — built with React Native CLI before I ever touched Expo. Simple, clean, and the project that got me hooked on mobile development.",
 		category: "mobile",
 	},
+	{
+		name: "LedgerCopilot",
+		description:
+			"An AI-powered personal finance app that helps you track expenses, parse bank statements, and monitor your financial health — all from your pocket.",
+		images: [
+			"/images/projects/ledgercopilot/ledgercopilot-1.png",
+			"/images/projects/ledgercopilot/ledgercopilot-2.png",
+			"/images/projects/ledgercopilot/ledgercopilot-3.png",
+			"/images/projects/ledgercopilot/ledgercopilot-4.png",
+			"/images/projects/ledgercopilot/ledgercopilot-5.png",
+			"/images/projects/ledgercopilot/ledgercopilot-6.png",
+		],
+		tools: ["React Native", "NestJS", "NativeWind"],
+		year: "2026",
+		story:
+			"Felt like something else had my pocket — money would just disappear without a trace. So I built LedgerCopilot to take back control: AI-powered expense tracking, smart bank statement parsing, and a financial health dashboard that actually tells you where your money is going.",
+		category: "mobile",
+	},
 
 	// ── Bots ─────────────────────────────────────────────────────
 	{
@@ -211,6 +229,24 @@ export const projects: ProjectInterface[] = [
 			"An AI-powered healthcare assistant built for the Klusterthon 2023 Hackathon by Stutern. Helps users understand symptoms and get preliminary medical guidance. Didn't win this one either — but shipped it.",
 		category: "website",
 	},
+	{
+		name: "3D Food Menu",
+		description:
+			"An immersive 3D food menu experience that lets customers explore and visualize dishes in stunning detail before ordering.",
+		images: [
+			"/images/projects/3d-menu/3d-menu-1.png",
+			"/images/projects/3d-menu/3d-menu-2.png",
+			"/images/projects/3d-menu/3d-menu-3.png",
+		],
+		links: {
+			website: "https://3d-menu.bleon.net",
+		},
+		tools: ["TypeScript", "TanStack Start", "Three.js"],
+		year: "2026",
+		story:
+			"Wanted people to see the food and salivate before ordering — so I built an interactive 3D menu powered by Three.js. Diners can spin, zoom, and explore every dish from every angle, turning online ordering into an experience rather than a transaction.",
+		category: "website",
+	},
 ]
 export const socials: Socials[] = [
 	{
@@ -250,13 +286,13 @@ export const currentRoles: Role[] = [
 			"HafrikPlay is reshaping the Afrobeat scene by giving emerging African artists a platform.",
 			"We use modern technologies like Next.js, Expo, React Native, Python, and PHP to deliver a seamless streaming experience that connects artists to a global audience",
 		],
-	}
+	},
 ]
 export const formerRoles: Role[] = [
 	{
 		title: "CEO & Mobile App Developer",
 		company: "Hustle",
-		period: "2025 — 2026"
+		period: "2025 — 2026",
 	},
 	{
 		title: "Lead Product Developer",
