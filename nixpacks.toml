@@ -9,5 +9,8 @@ buildImage = 'ghcr.io/railwayapp/nixpacks:latest'
 [phases.build]
   cmds = ['npm run build']
 
+[variables]
+  PORT = '3000'
+
 [start]
   cmd = 'npm start'
