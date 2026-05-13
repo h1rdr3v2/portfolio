@@ -129,6 +129,7 @@ export const projects: ProjectInterface[] = [
 		name: "CreditWithBleon",
 		description:
 			"An AI-powered Telegram & WhatsApp chatbot that vends mobile data and airtime with intelligent plan recommendations.",
+		images: ["/images/projects/creditwithbleon/creditwithbleon-1.png"],
 		links: {
 			telegram: "https://t.me/CreditWithBleonBot",
 			whatsapp: "https://wa.me/message/QC2RPONS2LO2L1",
@@ -196,6 +197,10 @@ export const projects: ProjectInterface[] = [
 	},
 	{
 		name: "MyCGPA Web (Legacy)",
+		images: [
+			"/images/projects/mycgpa-legacy/mycgpa-legacy-1.png",
+			"/images/projects/mycgpa-legacy/mycgpa-legacy-2.png",
+		],
 		links: {
 			website: "https://sage-kelpie-f2ec55.netlify.app/",
 			github: "https://github.com/h1rdr3v2/mycgpa-web-legacy",
@@ -208,6 +213,11 @@ export const projects: ProjectInterface[] = [
 	},
 	{
 		name: "GovWatch",
+		images: [
+			"/images/projects/govwatch/govwatch-1.png",
+			"/images/projects/govwatch/govwatch-2.png",
+			"/images/projects/govwatch/govwatch-3.png",
+		],
 		links: {
 			website: "https://govwatch-civic-connect.onrender.com/",
 			github: "https://github.com/h1rdr3v2/govwatch-civic-connect",
