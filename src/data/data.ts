@@ -68,7 +68,7 @@ export const projects: ProjectInterface[] = [
 			website: "https://usehustleapp.com",
 		},
 		tools: ["Expo", "React Native", "NestJS", "TypeScript", "Docker"],
-		year: "2025 — Present",
+		year: "2025 — 2026",
 		story:
 			"My second Abia State hackathon — me and my team placed 3rd and we've been building on the idea ever since. Hustle is growing into something real.",
 		category: "mobile",
@@ -129,7 +129,6 @@ export const projects: ProjectInterface[] = [
 		name: "CreditWithBleon",
 		description:
 			"An AI-powered Telegram & WhatsApp chatbot that vends mobile data and airtime with intelligent plan recommendations.",
-		images: ["/images/projects/creditwithbleon/creditwithbleon-1.png"],
 		links: {
 			telegram: "https://t.me/CreditWithBleonBot",
 			whatsapp: "https://wa.me/message/QC2RPONS2LO2L1",
@@ -190,6 +189,7 @@ export const projects: ProjectInterface[] = [
 			website: "https://bleon.net",
 		},
 		tools: ["Next.js", "TypeScript"],
+		images: ["/images/projects/bleon/bleon-1.png"],
 		year: "2023",
 		story:
 			"Needed a proper company landing page for Bleon — funny enough, I started the company because I needed a license to run CreditWithBleon, the AI chatbot that vends data. Built something clean and powerful that same year.",
