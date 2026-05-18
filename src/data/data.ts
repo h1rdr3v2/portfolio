@@ -1,7 +1,48 @@
 import { ProjectInterface, Role, Socials } from "@/types"
 
+/*
+ * SORTING CONVENTION ───────────────────────────────────────────
+ * Within each category, order by:
+ *   1. Projects with images float to the top (more visually pleasing)
+ *   2. Within each group, newest → oldest by year
+ * ───────────────────────────────────────────────────────────────
+ */
 export const projects: ProjectInterface[] = [
 	// ── Mobile Apps ──────────────────────────────────────────────
+	{
+		name: "LedgerCopilot",
+		description:
+			"An AI-powered personal finance app that helps you track expenses, parse bank statements, and monitor your financial health — all from your pocket.",
+		images: [
+			"/images/projects/ledgercopilot/ledgercopilot-1.png",
+			"/images/projects/ledgercopilot/ledgercopilot-2.png",
+			"/images/projects/ledgercopilot/ledgercopilot-3.png",
+			"/images/projects/ledgercopilot/ledgercopilot-4.png",
+			"/images/projects/ledgercopilot/ledgercopilot-5.png",
+			"/images/projects/ledgercopilot/ledgercopilot-6.png",
+		],
+		tools: ["React Native", "NestJS", "NativeWind"],
+		year: "2026",
+		story:
+			"Felt like something else had my pocket — money would just disappear without a trace. So I built LedgerCopilot to take back control: AI-powered expense tracking, smart bank statement parsing, and a financial health dashboard that actually tells you where your money is going.",
+		category: "mobile",
+	},
+	{
+		name: "Watchman Hymns",
+		description:
+			"A digital hymn book app designed to enhance worship experiences in church services.",
+		images: [
+			"/images/projects/watchman-hymns/watchman-hymns-4.png",
+			"/images/projects/watchman-hymns/watchman-hymns-1.png",
+			"/images/projects/watchman-hymns/watchman-hymns-2.png",
+			"/images/projects/watchman-hymns/watchman-hymns-3.png",
+		],
+		tools: ["React Native"],
+		year: "2024 · Discontinued",
+		story:
+			"A voluntary project for the Watchman Catholic Charismatic Renewal Movement — built a digital hymn book from scratch with dark mode, iPad support, and offline access so worshippers could follow along seamlessly during services. Was on the App Store until the church requested it be taken down.",
+		category: "mobile",
+	},
 	{
 		name: "MyCGPA",
 		description:
@@ -24,29 +65,14 @@ export const projects: ProjectInterface[] = [
 		category: "mobile",
 	},
 	{
-		name: "Watchman Hymns",
-		description:
-			"A digital hymn book app designed to enhance worship experiences in church services.",
-		images: [
-			"/images/projects/watchman-hymns/watchman-hymns-4.png",
-			"/images/projects/watchman-hymns/watchman-hymns-1.png",
-			"/images/projects/watchman-hymns/watchman-hymns-2.png",
-			"/images/projects/watchman-hymns/watchman-hymns-3.png",
-		],
-		tools: ["React Native"],
-		year: "2024 · Discontinued",
+		name: "Hustle",
+		links: {
+			website: "https://usehustleapp.com",
+		},
+		tools: ["Expo", "React Native", "NestJS", "TypeScript", "Docker"],
+		year: "2025 — 2026",
 		story:
-			"A voluntary project for the Watchman Catholic Charismatic Renewal Movement — built a digital hymn book from scratch with dark mode, iPad support, and offline access so worshippers could follow along seamlessly during services. Was on the App Store until the church requested it be taken down.",
-		category: "mobile",
-	},
-	{
-		name: "HafrikPlay",
-		description:
-			"A music streaming app for an Afrobeat platform connecting emerging African artists to a global audience.",
-		tools: ["React Native", "Expo", "Next.js"],
-		year: "2024 — Present",
-		story:
-			"Built the full music streaming experience for HafrikPlay — the mobile app, web dashboard, and artist portal. Reshaping the Afrobeat scene by giving emerging African artists a real platform to reach global listeners.",
+			"My second Abia State hackathon — me and my team placed 3rd and we've been building on the idea ever since. Hustle is growing into something real.",
 		category: "mobile",
 	},
 	{
@@ -63,14 +89,13 @@ export const projects: ProjectInterface[] = [
 		category: "mobile",
 	},
 	{
-		name: "Hustle",
-		links: {
-			website: "https://usehustleapp.com",
-		},
-		tools: ["Expo", "React Native", "NestJS", "TypeScript", "Docker"],
-		year: "2025 — 2026",
+		name: "HafrikPlay",
+		description:
+			"A music streaming app for an Afrobeat platform connecting emerging African artists to a global audience.",
+		tools: ["React Native", "Expo", "Next.js"],
+		year: "2024 — Present",
 		story:
-			"My second Abia State hackathon — me and my team placed 3rd and we've been building on the idea ever since. Hustle is growing into something real.",
+			"Built the full music streaming experience for HafrikPlay — the mobile app, web dashboard, and artist portal. Reshaping the Afrobeat scene by giving emerging African artists a real platform to reach global listeners.",
 		category: "mobile",
 	},
 	{
@@ -84,26 +109,36 @@ export const projects: ProjectInterface[] = [
 			"My first official mobile app — built with React Native CLI before I ever touched Expo. Simple, clean, and the project that got me hooked on mobile development.",
 		category: "mobile",
 	},
-	{
-		name: "LedgerCopilot",
-		description:
-			"An AI-powered personal finance app that helps you track expenses, parse bank statements, and monitor your financial health — all from your pocket.",
-		images: [
-			"/images/projects/ledgercopilot/ledgercopilot-1.png",
-			"/images/projects/ledgercopilot/ledgercopilot-2.png",
-			"/images/projects/ledgercopilot/ledgercopilot-3.png",
-			"/images/projects/ledgercopilot/ledgercopilot-4.png",
-			"/images/projects/ledgercopilot/ledgercopilot-5.png",
-			"/images/projects/ledgercopilot/ledgercopilot-6.png",
-		],
-		tools: ["React Native", "NestJS", "NativeWind"],
-		year: "2026",
-		story:
-			"Felt like something else had my pocket — money would just disappear without a trace. So I built LedgerCopilot to take back control: AI-powered expense tracking, smart bank statement parsing, and a financial health dashboard that actually tells you where your money is going.",
-		category: "mobile",
-	},
 
 	// ── Bots ─────────────────────────────────────────────────────
+	{
+		name: "Lanny WebPify",
+		description:
+			"A lightweight microservice for converting images to WebP stickers and vice versa — extracted from a larger WhatsApp chatbot.",
+		links: {
+			github: "https://github.com/h1rdr3v2/lanny-webpify",
+		},
+		tools: ["PHP", "Docker"],
+		year: "Open-sourced Jan 2026",
+		story:
+			"Born from Lanny, my WhatsApp chatbot that converted images to stickers and stickers back to images. When WhatsApp shipped the feature natively, I extracted and open-sourced the core conversion microservice.",
+		category: "bot",
+	},
+	{
+		name: "CreditWithBleon",
+		description:
+			"An AI-powered Telegram & WhatsApp chatbot that vends mobile data and airtime with intelligent plan recommendations.",
+		links: {
+			telegram: "https://t.me/CreditWithBleonBot",
+			whatsapp: "https://wa.me/message/QC2RPONS2LO2L1",
+			website: "https://creditwithbleon.bleon.net",
+		},
+		tools: ["PHP", "TypeScript", "NestJS", "RabbitMQ", "MySQL"],
+		year: "2023 — Present",
+		story:
+			"Powered by an actual LLM, this chatbot handles customer authentication, recommends the best data plans, and vends airtime across Telegram and WhatsApp — real fintech infrastructure running behind a chat interface.",
+		category: "bot",
+	},
 	{
 		name: "FauOnionBot",
 		description:
@@ -120,37 +155,9 @@ export const projects: ProjectInterface[] = [
 			"Redis",
 			"RabbitMQ",
 		],
-		year: "2021",
+		year: "2021 — Present",
 		story:
 			"Built an enterprise-grade referral chatbot for Telegram with Docker, Redis queues, and a MySQL backend — helping YouTubers and content promoters grow their channels through structured referral campaigns at scale.",
-		category: "bot",
-	},
-	{
-		name: "CreditWithBleon",
-		description:
-			"An AI-powered Telegram & WhatsApp chatbot that vends mobile data and airtime with intelligent plan recommendations.",
-		links: {
-			telegram: "https://t.me/CreditWithBleonBot",
-			whatsapp: "https://wa.me/message/QC2RPONS2LO2L1",
-			website: "https://creditwithbleon.bleon.net",
-		},
-		tools: ["PHP", "TypeScript", "NestJS", "RabbitMQ", "MySQL"],
-		year: "2023",
-		story:
-			"Powered by an actual LLM, this chatbot handles customer authentication, recommends the best data plans, and vends airtime across Telegram and WhatsApp — real fintech infrastructure running behind a chat interface.",
-		category: "bot",
-	},
-	{
-		name: "Lanny WebPify",
-		description:
-			"A lightweight microservice for converting images to WebP stickers and vice versa — extracted from a larger WhatsApp chatbot.",
-		links: {
-			github: "https://github.com/h1rdr3v2/lanny-webpify",
-		},
-		tools: ["PHP", "Docker"],
-		year: "Open-sourced Jan 2026",
-		story:
-			"Born from Lanny, my WhatsApp chatbot that converted images to stickers and stickers back to images. When WhatsApp shipped the feature natively, I extracted and open-sourced the core conversion microservice.",
 		category: "bot",
 	},
 
@@ -184,6 +191,41 @@ export const projects: ProjectInterface[] = [
 
 	// ── Websites ────────────────────────────────────────────────
 	{
+		name: "3D Food Menu",
+		description:
+			"An immersive 3D food menu experience that lets customers explore and visualize dishes in stunning detail before ordering.",
+		images: [
+			"/images/projects/3d-menu/3d-menu-1.png",
+			"/images/projects/3d-menu/3d-menu-2.png",
+			"/images/projects/3d-menu/3d-menu-3.png",
+		],
+		links: {
+			website: "https://3d-menu.bleon.net",
+		},
+		tools: ["TypeScript", "TanStack Start", "Three.js"],
+		year: "2026",
+		story:
+			"Wanted people to see the food and salivate before ordering — so I built an interactive 3D menu powered by Three.js. Diners can spin, zoom, and explore every dish from every angle, turning online ordering into an experience rather than a transaction.",
+		category: "website",
+	},
+	{
+		name: "GovWatch",
+		images: [
+			"/images/projects/govwatch/govwatch-1.png",
+			"/images/projects/govwatch/govwatch-2.png",
+			"/images/projects/govwatch/govwatch-3.png",
+		],
+		links: {
+			website: "https://govwatch-civic-connect.onrender.com/",
+			github: "https://github.com/h1rdr3v2/govwatch-civic-connect",
+		},
+		tools: ["Next.js", "TypeScript", "Python", "Docker"],
+		year: "2025",
+		story:
+			"Built for the Civic Connect Hackathon 2025 — Abia State Government. A dual-channel citizen complaint platform with both web and USSD access so every demographic can reach the government. Didn't win, but the idea still stands.",
+		category: "website",
+	},
+	{
 		name: "bleon.net",
 		links: {
 			website: "https://bleon.net",
@@ -212,23 +254,6 @@ export const projects: ProjectInterface[] = [
 		category: "website",
 	},
 	{
-		name: "GovWatch",
-		images: [
-			"/images/projects/govwatch/govwatch-1.png",
-			"/images/projects/govwatch/govwatch-2.png",
-			"/images/projects/govwatch/govwatch-3.png",
-		],
-		links: {
-			website: "https://govwatch-civic-connect.onrender.com/",
-			github: "https://github.com/h1rdr3v2/govwatch-civic-connect",
-		},
-		tools: ["Next.js", "TypeScript", "Python", "Docker"],
-		year: "2025",
-		story:
-			"Built for the Civic Connect Hackathon 2025 — Abia State Government. A dual-channel citizen complaint platform with both web and USSD access so every demographic can reach the government. Didn't win, but the idea still stands.",
-		category: "website",
-	},
-	{
 		name: "HappyMed AI",
 		links: {
 			github: "https://github.com/h1rdr3v2/happymed-ai-klusterthon2023",
@@ -237,24 +262,6 @@ export const projects: ProjectInterface[] = [
 		year: "2023",
 		story:
 			"An AI-powered healthcare assistant built for the Klusterthon 2023 Hackathon by Stutern. Helps users understand symptoms and get preliminary medical guidance. Didn't win this one either — but shipped it.",
-		category: "website",
-	},
-	{
-		name: "3D Food Menu",
-		description:
-			"An immersive 3D food menu experience that lets customers explore and visualize dishes in stunning detail before ordering.",
-		images: [
-			"/images/projects/3d-menu/3d-menu-1.png",
-			"/images/projects/3d-menu/3d-menu-2.png",
-			"/images/projects/3d-menu/3d-menu-3.png",
-		],
-		links: {
-			website: "https://3d-menu.bleon.net",
-		},
-		tools: ["TypeScript", "TanStack Start", "Three.js"],
-		year: "2026",
-		story:
-			"Wanted people to see the food and salivate before ordering — so I built an interactive 3D menu powered by Three.js. Diners can spin, zoom, and explore every dish from every angle, turning online ordering into an experience rather than a transaction.",
 		category: "website",
 	},
 ]

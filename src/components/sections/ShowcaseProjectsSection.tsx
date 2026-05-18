@@ -144,9 +144,9 @@ export default function ShowcaseProjectsSection({
 					))}
 				</div>
 
-				{/* Sliding indicator */}
+				{/* Sliding indicator — hidden on mobile */}
 				<div
-					className="absolute bottom-0 h-0.5 bg-foreground rounded-full transition-all duration-300 ease-out"
+					className="absolute bottom-0 h-0.5 bg-foreground rounded-full transition-all duration-300 ease-out hidden sm:block"
 					style={{
 						left: indicatorStyle.left,
 						width: indicatorStyle.width,
