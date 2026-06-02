@@ -28,6 +28,30 @@ export const projects: ProjectInterface[] = [
 		category: "mobile",
 	},
 	{
+		name: "MySales",
+		description:
+			"An offline-first, privacy-respecting profit tracker built for Nigerian market traders, shop owners, and small business operators who need to know if they're making wins or losses — no internet required.",
+		images: [
+			"/images/projects/mysales/image-1.png",
+			"/images/projects/mysales/image-2.png",
+			"/images/projects/mysales/image-3.png",
+			"/images/projects/mysales/image-4.png",
+			"/images/projects/mysales/image-5.png",
+			"/images/projects/mysales/image-6.png",
+		],
+		tools: [
+			"React Native",
+			"Expo",
+			"TypeScript",
+			"Zustand",
+			"React Native Reanimated",
+		],
+		year: "2026",
+		story:
+			"A rising need from Grace needing an offline, easy-to-use app to record her sales and know if she's making wins or losses. So I built MySales — no accounts, no cloud, just your data on your device. Built for the market trader who needs clarity, not complexity.",
+		category: "mobile",
+	},
+	{
 		name: "Watchman Hymns",
 		description:
 			"A digital hymn book app designed to enhance worship experiences in church services.",
@@ -42,6 +66,7 @@ export const projects: ProjectInterface[] = [
 		story:
 			"A voluntary project for the Watchman Catholic Charismatic Renewal Movement — built a digital hymn book from scratch with dark mode, iPad support, and offline access so worshippers could follow along seamlessly during services. Was on the App Store until the church requested it be taken down.",
 		category: "mobile",
+		hidden: true,
 	},
 	{
 		name: "MyCGPA",

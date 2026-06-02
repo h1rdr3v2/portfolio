@@ -18,6 +18,8 @@ export interface ProjectInterface {
 	year: string
 	story: string
 	category: ProjectCategory
+	/** When true, the project is excluded from the homepage showcase but still available via direct link */
+	hidden?: boolean
 }
 
 export interface Socials {
