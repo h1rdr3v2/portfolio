@@ -66,7 +66,6 @@ export const projects: ProjectInterface[] = [
 		story:
 			"A voluntary project for the Watchman Catholic Charismatic Renewal Movement — built a digital hymn book from scratch with dark mode, iPad support, and offline access so worshippers could follow along seamlessly during services. Was on the App Store until the church requested it be taken down.",
 		category: "mobile",
-		hidden: true,
 	},
 	{
 		name: "MyCGPA",

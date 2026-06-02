@@ -26,9 +26,7 @@ function Home() {
 					<AboutSection />
 				</div>
 				<div className="animate-fadeInUp animation-delay-400 w-full">
-					<ShowcaseProjectsSection
-						projects={projects.filter((p) => !p.hidden)}
-					/>
+					<ShowcaseProjectsSection projects={projects} />
 				</div>
 				<div className="animate-fadeInUp animation-delay-600">
 					<QuoteSection />
