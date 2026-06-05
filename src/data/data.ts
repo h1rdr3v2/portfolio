@@ -22,7 +22,7 @@ export const projects: ProjectInterface[] = [
 			"/images/projects/ledgercopilot/ledgercopilot-6.png",
 		],
 		tools: ["React Native", "NestJS", "NativeWind"],
-		year: "2026",
+		year: "May 2026",
 		story:
 			"Felt like something else had my pocket — money would just disappear without a trace. So I built LedgerCopilot to take back control: AI-powered expense tracking, smart bank statement parsing, and a financial health dashboard that actually tells you where your money is going.",
 		category: "mobile",
@@ -46,7 +46,7 @@ export const projects: ProjectInterface[] = [
 			"Zustand",
 			"React Native Reanimated",
 		],
-		year: "2026",
+		year: "Jun 2026",
 		story:
 			"A rising need from Grace needing an offline, easy-to-use app to record her sales and know if she's making wins or losses. So I built MySales — no accounts, no cloud, just your data on your device. Built for the market trader who needs clarity, not complexity.",
 		category: "mobile",
@@ -86,6 +86,16 @@ export const projects: ProjectInterface[] = [
 		year: "2023 — Present",
 		story:
 			"Started as a bare React Native app in 2023 to help university students track their CGPA. Migrated the entire codebase to Expo in 2025 for better DX and OTA updates. Been solo maintaining and shipping updates ever since.",
+		category: "mobile",
+	},
+	{
+		name: "JOLT",
+		description:
+			"Host Live Trivia. Play Together. — Create quizzes, share a room code, and let everyone compete in real time on the big screen.",
+		tools: ["React Native", "Expo", "TypeScript"],
+		year: "Jun 2026",
+		story:
+			"My church Streams of Joy Umuahia was holding a quiz game show on Mother's Day, and the coordination between the host and the media team was really poor. I thought to myself — there must be a better way to do this. So I built JOLT, a live trivia game platform that lets anyone create quizzes, host them from their phone, and let everyone join with a room code and play in real time on the big screen.",
 		category: "mobile",
 	},
 	{
