@@ -1,0 +1,39 @@
+# Runs both portfolios side by side.
+#
+#   docker compose up --build        both
+#   docker compose up portfolio      just the new one
+#
+# The new site is on :3000, the old one on :3002, so you can put them next to
+# each other in two tabs and compare. Both are overridable when something else
+# on the machine already holds the port:
+#
+#   PORT_NEW=4000 PORT_OLD=4001 docker compose up
+
+services:
+  portfolio:
+    build: ./web
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/"]
+      interval: 30s
+      timeout: 3s
+      start_period: 10s
+      retries: 3
+
+  # The previous site, kept runnable for reference until the new one replaces
+  # it in production. Nothing depends on it.
+  portfolio-legacy:
+    build: ./legacy
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/"]
+      interval: 30s
+      timeout: 3s
+      start_period: 10s
+      retries: 3

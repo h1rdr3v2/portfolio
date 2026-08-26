@@ -1,0 +1,266 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* ── Palette ────────────────────────────────────────────────────────────────
+ * One ground, declared as semantic tokens rather than literal colours, so a
+ * future re-skin is a single block of overrides instead of a component rewrite.
+ * ------------------------------------------------------------------------ */
+:root {
+	--bg: #faf9f4;
+	--card: #ffffff;
+	--ink: #0f1310;
+	--mute: rgb(15 19 16 / 0.7);
+	--faint: rgb(15 19 16 / 0.45);
+	--rule: rgb(15 19 16 / 0.1);
+	--accent: #4f9a63;
+	--accent-deep: #3c7a4c;
+	--tint: rgb(79 154 99 / 0.07);
+	--inverse-bg: #0f1310;
+	--inverse-ink: #f4f5f2;
+}
+
+/* `inline` keeps the generated utilities pointing at the live custom property
+ * rather than freezing a copy, so re-skinning stays a token-only change. */
+@theme inline {
+	--color-bg: var(--bg);
+	--color-card: var(--card);
+	--color-ink: var(--ink);
+	--color-mute: var(--mute);
+	--color-faint: var(--faint);
+	--color-rule: var(--rule);
+	--color-accent: var(--accent);
+	--color-accent-deep: var(--accent-deep);
+	--color-tint: var(--tint);
+	--color-inverse-bg: var(--inverse-bg);
+	--color-inverse-ink: var(--inverse-ink);
+
+	--font-sans: "Public Sans", ui-sans-serif, system-ui, sans-serif;
+	--font-serif: "Instrument Serif", ui-serif, Georgia, serif;
+	--font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+	--text-display: 4.75rem;
+	--text-display--line-height: 1.02;
+	--text-display--letter-spacing: -0.02em;
+	--text-title: 3.75rem;
+	--text-title--line-height: 1.02;
+	--text-title--letter-spacing: -0.015em;
+	--text-heading: 2.75rem;
+	--text-heading--line-height: 1;
+
+}
+
+@layer base {
+	* {
+		border-color: var(--rule);
+	}
+
+	html {
+		/* Every in-page scroll — nav clicks, hash landings, the browser's own
+		 * "scroll to fragment" on first paint — inherits its easing from here,
+		 * which is what the reduced-motion block below switches off. */
+		scroll-behavior: smooth;
+	}
+
+	/*
+	 * How far above a section the page stops. Sections carry
+	 * `data-scroll-target`; this is the single place the offset is defined, so
+	 * the pinned mobile bars are cleared by the same rule that sizes them
+	 * rather than by measuring them in JS.
+	 */
+	:root {
+		/*
+		 * `--header-height` is published by <MobileHeader> from its own box —
+		 * measured, not assumed, because the nav wraps to a second row on
+		 * narrow screens. The value here is the one-row height, used for the
+		 * server render and until hydration corrects it.
+		 */
+		--header-height: 87px;
+		--scroll-offset: calc(var(--header-height) + 8px);
+	}
+
+	@media (min-width: 64rem) {
+		:root {
+			--scroll-offset: 1.5rem;
+		}
+	}
+
+	[data-scroll-target] {
+		scroll-margin-top: var(--scroll-offset);
+	}
+
+	body {
+		background-color: var(--bg);
+		color: var(--ink);
+		font-family: var(--font-sans);
+		font-weight: 400;
+		-webkit-font-smoothing: antialiased;
+		text-rendering: optimizeLegibility;
+	}
+
+	h1,
+	h2,
+	h3 {
+		text-wrap: pretty;
+	}
+
+	::selection {
+		background: var(--tint);
+	}
+
+	:focus-visible {
+		outline: 2px solid var(--accent);
+		outline-offset: 3px;
+		border-radius: 3px;
+	}
+}
+
+@layer utilities {
+	.eyebrow {
+		font-family: var(--font-mono);
+		font-size: 0.75rem;
+		font-weight: 500;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+	}
+}
+
+/* ── Motion ─────────────────────────────────────────────────────────────── */
+
+/*
+ * Reveal uses `animation`, not `transition`, on purpose.
+ *
+ * These rules are unlayered, so they outrank anything in `@layer utilities` —
+ * a `transition` shorthand here would silently replace the `transition-*`
+ * utilities on the same element, and every hover effect on a revealed element
+ * would stop animating. Keeping the two on separate properties means an
+ * element can fade up *and* own its own hover transition.
+ *
+ * No `forwards` fill: once the animation ends the element returns to its
+ * natural state, leaving `transform` free for hover to use.
+ */
+[data-reveal="hidden"] {
+	opacity: 0;
+	transform: translateY(14px);
+}
+
+[data-reveal="shown"] {
+	animation: reveal-rise 0.45s ease;
+}
+
+@keyframes reveal-rise {
+	from {
+		opacity: 0;
+		transform: translateY(14px);
+	}
+	to {
+		opacity: 1;
+		transform: none;
+	}
+}
+
+[data-uli] path {
+	stroke-dasharray: 1400;
+	stroke-dashoffset: 1400;
+	transition: stroke-dashoffset 2.2s cubic-bezier(0.22, 0.7, 0.2, 1);
+}
+
+[data-uli="shown"] path {
+	stroke-dashoffset: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+	}
+
+	[data-reveal] {
+		opacity: 1;
+		transform: none;
+		animation: none !important;
+	}
+
+	[data-uli] path {
+		stroke-dashoffset: 0;
+	}
+}
+
+/* ── Long-form reading ──────────────────────────────────────────────────── */
+.prose-editorial {
+	--tw-prose-body: var(--mute);
+	--tw-prose-headings: var(--ink);
+	--tw-prose-lead: var(--mute);
+	--tw-prose-links: var(--accent);
+	--tw-prose-bold: var(--ink);
+	--tw-prose-counters: var(--faint);
+	--tw-prose-bullets: var(--rule);
+	--tw-prose-hr: var(--rule);
+	--tw-prose-quotes: var(--ink);
+	--tw-prose-quote-borders: var(--accent);
+	--tw-prose-captions: var(--faint);
+	--tw-prose-code: var(--ink);
+	--tw-prose-th-borders: var(--rule);
+	--tw-prose-td-borders: var(--rule);
+}
+
+.prose-editorial :where(h1, h2, h3) {
+	font-family: var(--font-serif);
+	font-weight: 400;
+	letter-spacing: -0.015em;
+}
+
+.prose-editorial :where(code):not(pre code) {
+	font-family: var(--font-mono);
+	font-size: 0.875em;
+	background: var(--tint);
+	border: 1px solid var(--rule);
+	border-radius: 4px;
+	padding: 0.15em 0.4em;
+}
+
+.prose-editorial :where(code):not(pre code)::before,
+.prose-editorial :where(code):not(pre code)::after {
+	content: none;
+}
+
+.prose-editorial :where(pre) {
+	/* Shiki writes its theme background inline; the page keeps one dark ground
+	 * for code so blocks match the contact section rather than the theme. */
+	background: var(--inverse-bg) !important;
+	border: 1px solid var(--rule);
+	border-radius: 12px;
+	padding: 1.15rem 1.25rem;
+	overflow-x: auto;
+	font-size: 0.875rem;
+	line-height: 1.7;
+}
+
+.prose-editorial :where(pre code) {
+	font-family: var(--font-mono);
+	display: grid;
+	background: none;
+	border: none;
+	padding: 0;
+}
+
+.prose-editorial :where(pre code .line) {
+	min-height: 1lh;
+}
+
+.prose-editorial :where(table) {
+	display: block;
+	overflow-x: auto;
+	font-size: 0.9375rem;
+}
+
+.prose-editorial :where(img) {
+	border-radius: 12px;
+	border: 1px solid var(--rule);
+}
