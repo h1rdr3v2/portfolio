@@ -97,6 +97,25 @@ PORT_NEW=4000 PORT_OLD=4001 docker compose up
 
 `docker compose up portfolio` runs just this one.
 
+## The deploy's own URL
+
+`og:url`, `og:image` and `twitter:image` have to be absolute — crawlers will not
+resolve a relative path — so the origin is a deploy-time fact. It defaults to
+the canonical domain in `src/config/site.ts`, which is the right answer for
+production and means a link shared from a preview still points at the real site.
+
+To have a deploy advertise its own domain instead, set `VITE_SITE_URL`.
+
+**It is a build-time value, not a runtime one.** Vite inlines `VITE_*` into the
+bundle when `npm run build` runs, so setting it as a runtime environment
+variable has no effect. `web/Dockerfile` takes it as an `ARG` and
+`docker-compose.yml` passes it through, falling back to Coolify's
+`SERVICE_URL_PORTFOLIO` when it is not given explicitly:
+
+```bash
+VITE_SITE_URL=https://staging.example.dev docker compose up --build portfolio
+```
+
 ## Deploying
 
 `Dockerfile` builds and runs the Nitro output; `nixpacks.toml` covers Railway.

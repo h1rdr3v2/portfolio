@@ -11,7 +11,14 @@
 
 services:
   portfolio:
-    build: ./web
+    build:
+      context: ./web
+      args:
+        # Origin used for canonical and social-preview URLs. Build-time, not
+        # runtime — see web/Dockerfile. Prefers an explicit VITE_SITE_URL, then
+        # the domain Coolify assigns this service, then the canonical domain
+        # baked into src/config/site.ts.
+        VITE_SITE_URL: "${VITE_SITE_URL:-${SERVICE_URL_PORTFOLIO:-}}"
     environment:
       NODE_ENV: production
       PORT: "3000"

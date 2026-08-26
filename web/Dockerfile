@@ -8,6 +8,13 @@ COPY package.json package-lock.json ./
 RUN npm ci
 
 COPY . .
+
+# Vite inlines import.meta.env.VITE_* at build time, so this has to be a build
+# arg — a runtime environment variable would never reach the bundle. Unset, the
+# app falls back to the canonical domain in src/config/site.ts.
+ARG VITE_SITE_URL
+ENV VITE_SITE_URL=$VITE_SITE_URL
+
 RUN npm run build
 
 # ── Runtime stage ──────────────────────────────────────────────────────────

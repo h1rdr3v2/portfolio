@@ -1,5 +1,28 @@
 import type { Social } from "@/types/experience"
 
+/** Where the site lives when nothing says otherwise. */
+const CANONICAL_URL = "https://deveze.bleon.net"
+
+/**
+ * The absolute origin used for canonical and social-preview URLs.
+ *
+ * Crawlers cannot resolve a relative `/images/og.jpg`, so these have to be
+ * absolute — which means the origin is a deploy-time fact, not a runtime one.
+ * `VITE_SITE_URL` lets a preview deploy advertise its own domain instead of
+ * production's; unset, everything points at the canonical domain, so a link
+ * shared from anywhere still resolves to the real site.
+ *
+ * `import.meta.env` rather than `process.env`: this module is imported by
+ * client code too, and Vite only substitutes the former in the browser bundle.
+ */
+function resolveSiteUrl(): string {
+	const configured = import.meta.env.VITE_SITE_URL
+	if (!configured) return CANONICAL_URL
+	// A trailing slash here would produce "…net//images/og.jpg".
+	return configured.trim().replace(/\/+$/, "") || CANONICAL_URL
+}
+
+
 export const site = {
 	name: "Destiny Ezenwata",
 	/** Split for the two-line rail wordmark. */
@@ -8,7 +31,7 @@ export const site = {
 	role: "Mobile & Software Developer",
 	location: "Umuahia, NG · UTC+1",
 	email: "destinyezenwata@bleon.net",
-	url: "https://deveze.bleon.net",
+	url: resolveSiteUrl(),
 	ogImage: "/images/og.jpg",
 	/** Greyscale so it sits on the inverted contact ground. */
 	photo: "/images/me.webp",
