@@ -1,4 +1,6 @@
 export interface CurrentRole {
+	/** Role held at the company, e.g. "Founder". */
+	title?: string
 	company: string
 	/** e.g. "Open for Collaboration" — omitted when there is nothing to flag. */
 	status?: string

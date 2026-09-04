@@ -19,7 +19,10 @@ export function ExperienceSection() {
 						<p className="font-mono text-[13px] text-faint">{role.period}</p>
 						<div>
 							<div className="flex flex-wrap items-baseline gap-3">
-								<h3 className="text-xl font-semibold">{role.company}</h3>
+								<h3 className="text-xl font-semibold">
+									{role.title ? `${role.title} · ` : ""}
+									{role.company}
+								</h3>
 								{role.status ? (
 									<span className="inline-flex items-center gap-1.5 rounded-full bg-tint px-2.5 py-1 font-mono text-[11px] text-accent-deep">
 										<span
@@ -51,7 +54,7 @@ export function ExperienceSection() {
 						className="flex w-full cursor-pointer items-center justify-between gap-4 py-6 text-left"
 					>
 						<span className="text-xl font-semibold text-ink">
-							Former roles · 2017 — 2024
+							Former roles · 2017 — 2026
 						</span>
 						<span className="shrink-0 font-mono text-xs text-accent">
 							{showFormer ? "CLOSE −" : "OPEN +"}
