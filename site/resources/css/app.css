@@ -1,0 +1,276 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@import "./highlight-theme.css" layer(components);
+
+@source "../views";
+
+/* Tailwind's `dark:` variant follows the class the theme script puts on <html>,
+ * not the OS setting, so the toggle in the header is what decides. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ── Palette ────────────────────────────────────────────────────────────────
+ * The first site's colours, kept as they were. Declared as HSL channels so an
+ * alpha can be applied at the point of use (`bg-foreground/10`).
+ * ------------------------------------------------------------------------ */
+:root {
+	--background: 0 0% 100%;
+	--foreground: 0 0% 3.9%;
+	--card: 0 0% 97%;
+	--muted: 0 0% 96.1%;
+	--muted-foreground: 0 0% 45.1%;
+	--border: 0 0% 89.8%;
+	--frame: 0 0% 3.9%;
+	/* The one interactive colour — links, hovers, the active chip, buttons.
+	 * The first site's link blue; a step deeper on white so it stays readable. */
+	--accent: 221 83% 50%;
+	/* Status only: the green dot on "open for collaboration". Never a link. */
+	--go: 88 45% 52%;
+}
+
+.dark {
+	--background: 255 75% 4%;
+	--foreground: 0 0% 100%;
+	--card: 215 27.9% 7.9%;
+	--muted: 0 0% 14.9%;
+	--muted-foreground: 0 0% 63.9%;
+	--border: 0 0% 14.9%;
+	--frame: 0 0% 100%;
+	--accent: 217 91% 66%;
+	--go: 88 45% 52%;
+}
+
+/* `inline` keeps the utilities pointing at the live custom property rather
+ * than freezing a copy, which is what lets `.dark` swap them at runtime. */
+@theme inline {
+	--color-background: hsl(var(--background));
+	--color-foreground: hsl(var(--foreground));
+	--color-card: hsl(var(--card));
+	--color-muted: hsl(var(--muted));
+	--color-muted-foreground: hsl(var(--muted-foreground));
+	--color-border: hsl(var(--border));
+	--color-accent: hsl(var(--accent));
+	--color-go: hsl(var(--go));
+	--color-frame: hsl(var(--frame));
+
+	/* No webfonts. The system face is what the first site rendered in, it is
+	 * what the reader's own machine already has, and it is one less thing
+	 * that has to load before the page looks like itself. */
+	--font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+	--font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+@layer base {
+	* {
+		border-color: hsl(var(--border));
+	}
+
+	html {
+		scroll-behavior: smooth;
+	}
+
+	body {
+		font-family: var(--font-sans);
+		-webkit-font-smoothing: antialiased;
+		text-rendering: optimizeLegibility;
+		transition: background-color 0.3s ease, color 0.3s ease;
+	}
+
+	h1,
+	h2,
+	h3 {
+		text-wrap: pretty;
+	}
+
+	::selection {
+		background: hsl(var(--accent) / 0.25);
+	}
+
+	:focus-visible {
+		outline: 2px solid hsl(var(--accent));
+		outline-offset: 3px;
+		border-radius: 4px;
+	}
+
+	::-webkit-scrollbar {
+		width: 10px;
+	}
+
+	::-webkit-scrollbar-track {
+		background: hsl(var(--background));
+	}
+
+	::-webkit-scrollbar-thumb {
+		background: hsl(var(--muted-foreground) / 0.2);
+		border-radius: 999px;
+	}
+
+	::-webkit-scrollbar-thumb:hover {
+		background: hsl(var(--muted-foreground) / 0.4);
+	}
+}
+
+/* ── Small personal things ──────────────────────────────────────────────── */
+
+/* The word "Nigeria" in the intro shows the flag as the pointer. */
+.country:hover {
+	cursor:
+		url("/images/nigeria.png") 20 20,
+		auto;
+}
+
+.waving-hand {
+	display: inline-block;
+	transform-origin: 70% 70%;
+}
+
+.waving-hand[data-waving="true"] {
+	animation: wave 1.8s ease-in-out;
+}
+
+@keyframes wave {
+	0% { transform: rotate(0deg); }
+	10% { transform: rotate(-10deg); }
+	20% { transform: rotate(12deg); }
+	30% { transform: rotate(-10deg); }
+	40% { transform: rotate(9deg); }
+	50% { transform: rotate(0deg); }
+	100% { transform: rotate(0deg); }
+}
+
+/* ── Motion ─────────────────────────────────────────────────────────────── */
+
+/*
+ * The light switch. Switching on, the new (light) page grows out of the bulb
+ * as a circle until it covers the screen; switching off, the old (light) page
+ * shrinks back into the bulb and the dark one is underneath. The bulb's
+ * position and the radius that reaches the far corner are set by the switch
+ * as custom properties on <html> before the view transition starts.
+ */
+::view-transition-old(root),
+::view-transition-new(root) {
+	animation: none;
+	mix-blend-mode: normal;
+}
+
+:root.theme-to-light::view-transition-new(root) {
+	z-index: 1;
+	animation: light-spread 0.55s ease-out forwards;
+}
+
+:root.theme-to-dark::view-transition-old(root) {
+	z-index: 1;
+	animation: light-gather 0.5s ease-in forwards;
+}
+
+@keyframes light-spread {
+	from {
+		clip-path: circle(0 at var(--light-x) var(--light-y));
+	}
+	to {
+		clip-path: circle(var(--light-r) at var(--light-x) var(--light-y));
+	}
+}
+
+@keyframes light-gather {
+	from {
+		clip-path: circle(var(--light-r) at var(--light-x) var(--light-y));
+	}
+	to {
+		clip-path: circle(0 at var(--light-x) var(--light-y));
+	}
+}
+
+/* While the page is being snapshotted, nothing may be mid-transition —
+ * otherwise the new snapshot is taken with the old colours still fading. */
+:root.theme-switching *,
+:root.theme-switching *::before,
+:root.theme-switching *::after {
+	transition: none !important;
+}
+
+/* Nothing else on this site moves on its own. The only motion is a reaction
+ * to the reader — a hover, the hand, the switch — and this turns even that
+ * off for anyone who has asked for less. */
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+	}
+}
+
+/* ── Long-form reading ──────────────────────────────────────────────────── */
+.prose-post {
+	--tw-prose-body: hsl(var(--foreground) / 0.85);
+	--tw-prose-headings: hsl(var(--foreground));
+	--tw-prose-lead: hsl(var(--muted-foreground));
+	--tw-prose-links: hsl(var(--accent));
+	--tw-prose-bold: hsl(var(--foreground));
+	--tw-prose-counters: hsl(var(--muted-foreground));
+	--tw-prose-bullets: hsl(var(--border));
+	--tw-prose-hr: hsl(var(--border));
+	--tw-prose-quotes: hsl(var(--foreground));
+	--tw-prose-quote-borders: hsl(var(--border));
+	--tw-prose-captions: hsl(var(--muted-foreground));
+	--tw-prose-code: hsl(var(--foreground));
+	--tw-prose-th-borders: hsl(var(--border));
+	--tw-prose-td-borders: hsl(var(--border));
+}
+
+.prose-post :where(a) {
+	text-decoration-color: hsl(var(--accent) / 0.4);
+	text-underline-offset: 4px;
+	font-weight: inherit;
+	transition: text-decoration-color 0.2s ease;
+}
+
+.prose-post :where(a):hover {
+	text-decoration-color: hsl(var(--accent));
+}
+
+/* Inline code. The highlighter's theme paints `code` for its dark blocks;
+ * inline code takes the page's own colours back. */
+.prose-post :where(code):not(pre code) {
+	font-family: var(--font-mono);
+	font-size: 0.875em;
+	color: hsl(var(--foreground));
+	background: hsl(var(--muted));
+	border-radius: 4px;
+	padding: 0.15em 0.4em;
+}
+
+.prose-post :where(code):not(pre code)::before,
+.prose-post :where(code):not(pre code)::after {
+	content: none;
+}
+
+/* Code blocks keep one dark ground in both themes. tempest/highlight emits
+ * `<pre data-lang>` with token spans directly inside — no inner `<code>`. */
+.prose-post :where(pre) {
+	font-family: var(--font-mono);
+	background: #0d1117;
+	color: #e6edf3;
+	border: 1px solid hsl(var(--border));
+	border-radius: 10px;
+	padding: 1.1rem 1.2rem;
+	overflow-x: auto;
+	font-size: 0.875rem;
+	line-height: 1.7;
+}
+
+.prose-post :where(table) {
+	display: block;
+	overflow-x: auto;
+	font-size: 0.9375rem;
+}
+
+.prose-post :where(img) {
+	border-radius: 10px;
+	border: 1px solid hsl(var(--border));
+}

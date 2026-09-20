@@ -1,52 +1,57 @@
-# Runs both portfolios side by side.
+# The site: one Laravel container (PHP-FPM + nginx) and, optionally, the
+# Inertia SSR server built from the same image.
 #
-#   docker compose up --build        both
-#   docker compose up portfolio      just the new one
+#   docker compose up --build            site on :3000
+#   docker compose --profile ssr up      …plus server-side rendering
 #
-# The new site is on :3000, the old one on :3002, so you can put them next to
-# each other in two tabs and compare. Both are overridable when something else
-# on the machine already holds the port:
+# First run: the admin account is seeded from ADMIN_EMAIL / ADMIN_PASSWORD.
 #
-#   PORT_NEW=4000 PORT_OLD=4001 docker compose up
+#   docker compose exec site php artisan db:seed --class=AdminUserSeeder
+#
+# Data that must outlive the container — the SQLite database and uploaded
+# images — lives in the two named volumes. Point DB_* at MySQL/Postgres in
+# the environment to skip SQLite entirely.
 
 services:
-  portfolio:
-    build:
-      context: ./web
-      args:
-        # Origin used for canonical and social-preview URLs. Build-time, not
-        # runtime — see web/Dockerfile. Prefers an explicit VITE_SITE_URL, then
-        # the domain Coolify assigns this service, then the canonical domain
-        # baked into src/config/site.ts.
-        VITE_SITE_URL: "${VITE_SITE_URL:-${SERVICE_URL_PORTFOLIO:-}}"
+  site:
+    build: ./site
+    ports:
+      - "${PORT:-3000}:8080"
     environment:
-      NODE_ENV: production
-      PORT: "3000"
+      APP_ENV: production
+      APP_DEBUG: "false"
+      APP_KEY: "${APP_KEY:?set APP_KEY (php artisan key:generate --show)}"
+      APP_URL: "${APP_URL:-https://deveze.bleon.net}"
+      DB_CONNECTION: sqlite
+      DB_DATABASE: /var/www/html/database/database.sqlite
+      ADMIN_EMAIL: "${ADMIN_EMAIL:-admin@example.com}"
+      ADMIN_PASSWORD: "${ADMIN_PASSWORD:-change-me}"
+      INERTIA_SSR_ENABLED: "${INERTIA_SSR_ENABLED:-false}"
+      INERTIA_SSR_URL: http://ssr:13714
+      # Trust the proxy in front (Coolify/Traefik) so generated URLs are https.
+      TRUSTED_PROXIES: "*"
+    volumes:
+      - database:/var/www/html/database
+      - uploads:/var/www/html/storage/app/public
     restart: unless-stopped
     healthcheck:
-      # 127.0.0.1, not localhost: in some container runtimes localhost
-      # resolves to ::1 first, and Nitro listens on IPv4 only — the check
-      # then fails against a closed IPv6 socket while the app is fine.
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:3000/"]
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:8080/up"]
       interval: 30s
       timeout: 3s
-      start_period: 10s
+      start_period: 15s
       retries: 3
 
-  # The previous site, kept runnable for reference until the new one replaces
-  # it in production. Nothing depends on it.
-  # portfolio-legacy:
-  #   build: ./legacy
-  #   environment:
-  #     NODE_ENV: production
-  #     PORT: "3000"
-  #   restart: unless-stopped
-  #   healthcheck:
-  #     # 127.0.0.1, not localhost: in some container runtimes localhost
-  #     # resolves to ::1 first, and Nitro listens on IPv4 only — the check
-  #     # then fails against a closed IPv6 socket while the app is fine.
-  #     test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:3000/"]
-  #     interval: 30s
-  #     timeout: 3s
-  #     start_period: 10s
-  #     retries: 3
+  # Renders the first paint of each page on the server. Same image, no nginx —
+  # just the Node bundle Vite built. Opt in with `--profile ssr` and
+  # INERTIA_SSR_ENABLED=true.
+  ssr:
+    build: ./site
+    profiles: ["ssr"]
+    command: ["node", "bootstrap/ssr/ssr.js"]
+    environment:
+      AUTORUN_ENABLED: "false"
+    restart: unless-stopped
+
+volumes:
+  database:
+  uploads:
