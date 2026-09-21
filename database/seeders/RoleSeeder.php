@@ -6,17 +6,17 @@ use App\Models\Role;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\File;
 
+/** Fills an empty roles table; after that the admin owns it. */
 class RoleSeeder extends Seeder
 {
     public function run(): void
     {
-        $roles = File::json(database_path('seeders/data/roles.json'));
+        if (Role::query()->exists()) {
+            return;
+        }
 
-        foreach ($roles as $role) {
-            Role::query()->updateOrCreate(
-                ['company' => $role['company'], 'period' => $role['period']],
-                $role,
-            );
+        foreach (File::json(database_path('seeders/data/roles.json')) as $role) {
+            Role::query()->create($role);
         }
     }
 }

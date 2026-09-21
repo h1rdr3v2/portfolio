@@ -8,9 +8,8 @@
 #
 #   docker compose exec site php artisan db:seed --class=AdminUserSeeder
 #
-# Data that must outlive the container — the SQLite database and uploaded
-# images — lives in the two named volumes. Point DB_* at MySQL/Postgres in
-# the environment to skip SQLite entirely.
+# Uploaded images live in the `uploads` volume. The database is MySQL when
+# DB_* say so; otherwise a SQLite file in the `database` volume.
 
 services:
   site:
@@ -22,8 +21,14 @@ services:
       APP_DEBUG: "false"
       APP_KEY: "${APP_KEY:?set APP_KEY (php artisan key:generate --show)}"
       APP_URL: "${APP_URL:-https://deveze.bleon.net}"
-      DB_CONNECTION: sqlite
-      DB_DATABASE: /var/www/html/database/database.sqlite
+      # Point these at MySQL in the deploy environment; unset, it runs on the
+      # SQLite file in the `database` volume.
+      DB_CONNECTION: "${DB_CONNECTION:-sqlite}"
+      DB_HOST: "${DB_HOST:-}"
+      DB_PORT: "${DB_PORT:-3306}"
+      DB_DATABASE: "${DB_DATABASE:-/var/www/html/database/database.sqlite}"
+      DB_USERNAME: "${DB_USERNAME:-}"
+      DB_PASSWORD: "${DB_PASSWORD:-}"
       ADMIN_EMAIL: "${ADMIN_EMAIL:-admin@example.com}"
       ADMIN_PASSWORD: "${ADMIN_PASSWORD:-change-me}"
       INERTIA_SSR_ENABLED: "${INERTIA_SSR_ENABLED:-false}"

@@ -5,7 +5,7 @@ the back, one app.
 
 ```bash
 composer run setup     # deps, .env, key, migrate, npm install, build
-php artisan db:seed    # projects, roles, the three sample posts, the admin
+php artisan db:seed    # projects, roles, the three sample posts, the admin — empty tables only
 composer run dev       # php server on :8000 + vite + queue + logs
 ```
 
@@ -62,7 +62,7 @@ APP_KEY=... ADMIN_EMAIL=... ADMIN_PASSWORD=... docker compose up --build
 docker compose --profile ssr up          # with server-side rendering
 ```
 
-Set `DB_*` to MySQL or Postgres to skip SQLite. Migrations run on boot.
+Set `DB_*` to MySQL to skip SQLite. Migrations run on boot; seeding is manual and only ever fills empty tables, so it is safe to run again.
 
 ## Tests
 

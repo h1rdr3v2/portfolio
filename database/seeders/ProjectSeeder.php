@@ -6,15 +6,21 @@ use App\Models\Project;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\File;
 
+/**
+ * Fills an empty projects table from `data/projects.json`. Once anything is
+ * in the table the admin owns it — a reseed must not add back a project
+ * that was deleted or renamed there.
+ */
 class ProjectSeeder extends Seeder
 {
-    /** Upserts by slug, so re-seeding refreshes copy without duplicating rows. */
     public function run(): void
     {
-        $projects = File::json(database_path('seeders/data/projects.json'));
+        if (Project::query()->exists()) {
+            return;
+        }
 
-        foreach ($projects as $project) {
-            Project::query()->updateOrCreate(['slug' => $project['slug']], $project);
+        foreach (File::json(database_path('seeders/data/projects.json')) as $project) {
+            Project::query()->create($project);
         }
     }
 }

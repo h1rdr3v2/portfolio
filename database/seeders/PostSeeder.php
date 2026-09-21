@@ -10,11 +10,18 @@ use Symfony\Component\Yaml\Yaml;
 /**
  * Loads `data/posts/<slug>.md` files with YAML frontmatter — the same format
  * the previous site used — so existing writing carries over as-is.
+ *
+ * Only into an empty table: once there is writing in the database the admin
+ * owns it, and a reseed must not undo an edit or bring back a deleted post.
  */
 class PostSeeder extends Seeder
 {
     public function run(): void
     {
+        if (Post::query()->exists()) {
+            return;
+        }
+
         foreach (File::files(database_path('seeders/data/posts')) as $file) {
             if ($file->getExtension() !== 'md') {
                 continue;
@@ -22,16 +29,14 @@ class PostSeeder extends Seeder
 
             ['meta' => $meta, 'body' => $body] = $this->parse($file->getContents());
 
-            Post::query()->updateOrCreate(
-                ['slug' => $file->getFilenameWithoutExtension()],
-                [
-                    'title' => $meta['title'] ?? 'Untitled',
-                    'excerpt' => $meta['excerpt'] ?? null,
-                    'body' => $body,
-                    'tags' => $meta['tags'] ?? [],
-                    'published_at' => isset($meta['date']) ? now()->parse($meta['date']) : null,
-                ],
-            );
+            Post::query()->create([
+                'slug' => $file->getFilenameWithoutExtension(),
+                'title' => $meta['title'] ?? 'Untitled',
+                'excerpt' => $meta['excerpt'] ?? null,
+                'body' => $body,
+                'tags' => $meta['tags'] ?? [],
+                'published_at' => isset($meta['date']) ? now()->parse($meta['date']) : null,
+            ]);
         }
     }
 
