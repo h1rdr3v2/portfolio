@@ -114,7 +114,12 @@
       "TypeScript"
     ],
     "links": {},
-    "images": [],
+    "images": [
+      "/images/projects/jolt/jolt-1.webp",
+      "/images/projects/jolt/jolt-2.webp",
+      "/images/projects/jolt/jolt-3.webp",
+      "/images/projects/jolt/jolt-4.webp"
+    ],
     "year": "Jun 2026",
     "is_featured": false,
     "featured_order": null,
@@ -420,5 +425,228 @@
     "is_featured": false,
     "featured_order": null,
     "sort_order": 19
+  },
+  {
+    "slug": "drape",
+    "name": "Drape",
+    "category": "mobile",
+    "description": "Your wardrobe, digitized. Every piece you own in one place, a styling studio to try outfits before you dress, and looks you can build in seconds and share.",
+    "story": "I kept buying things I already had. Drape photographs the closet once and keeps it in your pocket: every piece tagged and in its place, a styling studio that puts pieces together before you get dressed, and saved looks you can share with anyone. Expo on the phone, NestJS behind it. The store screenshots are done; the listing is next.",
+    "tools": [
+      "React Native",
+      "Expo",
+      "TypeScript",
+      "NestJS"
+    ],
+    "links": {},
+    "images": [
+      "/images/projects/drape/drape-1.webp",
+      "/images/projects/drape/drape-2.webp",
+      "/images/projects/drape/drape-3.webp",
+      "/images/projects/drape/drape-4.webp",
+      "/images/projects/drape/drape-5.webp"
+    ],
+    "year": "2026",
+    "is_featured": false,
+    "featured_order": null,
+    "sort_order": 20
+  },
+  {
+    "slug": "clheean",
+    "name": "CLHEEAN",
+    "category": "mobile",
+    "description": "The National Orientation Agency's civic education app — a community forum, civic knowledge quizzes and ReportIT for reporting issues — on the Play Store and the App Store.",
+    "story": "I didn't build this one; I shipped it. NOA handed me the finished source and asked for it on both stores. My part was the release: wrapping the web app for Android and iOS with Capacitor, building the APK and the IPA, and taking it through Play Console and App Store review, published under the agency's own name.",
+    "tools": [
+      "Capacitor",
+      "TypeScript",
+      "Vite",
+      "App Store Connect",
+      "Play Console"
+    ],
+    "links": {
+      "appstore": "https://apps.apple.com/us/app/clheean/id6749490712",
+      "playstore": "https://play.google.com/store/apps/details?id=com.chleean.app"
+    },
+    "images": [
+      "/images/projects/clheean/clheean-1.webp",
+      "/images/projects/clheean/clheean-2.webp",
+      "/images/projects/clheean/clheean-3.webp",
+      "/images/projects/clheean/clheean-4.webp",
+      "/images/projects/clheean/clheean-5.webp"
+    ],
+    "year": "2026",
+    "is_featured": false,
+    "featured_order": null,
+    "sort_order": 21
+  },
+  {
+    "slug": "studio",
+    "name": "Studio",
+    "category": "mobile",
+    "description": "Video automation from a phone: a topic becomes a script and storyboard, the scenes get generated, you review and rearrange them, and it renders and publishes.",
+    "story": "Making a YouTube video is mostly waiting between steps. Studio chains them: type an idea, get a script and storyboard, generate the scenes, drag them into the order you want, approve, render, publish. fal.ai draws, Claude and OpenAI write, a NestJS API holds it together. Still in development — nothing released yet.",
+    "tools": [
+      "React Native",
+      "Expo",
+      "TypeScript",
+      "NestJS",
+      "fal.ai"
+    ],
+    "links": {},
+    "images": [],
+    "year": "2026 — In progress",
+    "is_featured": false,
+    "featured_order": null,
+    "sort_order": 22
+  },
+  {
+    "slug": "clear-status",
+    "name": "Clear Status",
+    "category": "bot",
+    "description": "A WhatsApp bot that gives you back HD video for Status. Send it a clip as a document, forward its reply to My Status, and the bytes reach your viewers untouched.",
+    "story": "WhatsApp crushes every video posted to Status. Send Clear Status the clip as a document and it encodes it and sends the result back in chat; forward that message to My Status and WhatsApp reuses the media instead of compressing it again. Measured with VMAF on a 24.5-second iPhone clip: 74.86 posted from the gallery, 94.25 through the bot.",
+    "tools": [
+      "Laravel",
+      "PHP",
+      "FFmpeg",
+      "Docker"
+    ],
+    "links": {},
+    "images": [
+      "/images/projects/clear-status/clear-status-1.webp",
+      "/images/projects/clear-status/clear-status-2.webp"
+    ],
+    "year": "2026",
+    "is_featured": false,
+    "featured_order": null,
+    "sort_order": 23
+  },
+  {
+    "slug": "shop-ai",
+    "name": "Shop AI",
+    "category": "bot",
+    "description": "Let AI talk to your customers: a WhatsApp sales assistant that answers from the inventory a shop already keeps in a Google Sheet.",
+    "story": "Small shops answer the same questions on WhatsApp all day — do you have it, how much, is it in stock. Shop AI puts a language model on the number: the inventory stays in the Google Sheet the owner already keeps, the model reads from it, and customers just chat. NestJS underneath.",
+    "tools": [
+      "NestJS",
+      "TypeScript",
+      "Groq",
+      "Google Sheets"
+    ],
+    "links": {},
+    "images": [],
+    "year": "2026",
+    "is_featured": false,
+    "featured_order": null,
+    "sort_order": 24
+  },
+  {
+    "slug": "workflow-plugin",
+    "name": "Hermes Workflow Plugin",
+    "category": "api",
+    "description": "A workflow engine for the Hermes agent: scheduled, cron-like workflows with persistent per-workflow state and human-in-the-loop steps, created by people or by agents.",
+    "story": "Agents are good at doing a thing once and bad at doing it every Monday. This plugin gives Hermes a first-class idea of a workflow: a schedule, state that survives between runs, and steps that stop and wait for a person before carrying on. Open source.",
+    "tools": [
+      "Python"
+    ],
+    "links": {
+      "github": "https://github.com/h1rdr3v2/workflow_plugin"
+    },
+    "images": [],
+    "year": "May 2026",
+    "is_featured": false,
+    "featured_order": null,
+    "sort_order": 25
+  },
+  {
+    "slug": "open-hymnal-json",
+    "name": "Open Hymnal JSON",
+    "category": "api",
+    "description": "A community-driven collection of church hymns as JSON, for anyone building a digital worship app.",
+    "story": "The data behind Watchman Hymns, opened up. Every church app types the same hymn book out again from scratch; this is one structured collection anyone can build on. It is also the most-starred thing I have on GitHub, which says something about how many people needed it.",
+    "tools": [
+      "JSON"
+    ],
+    "links": {
+      "github": "https://github.com/h1rdr3v2/open-hymnal-json"
+    },
+    "images": [],
+    "year": "2025",
+    "is_featured": false,
+    "featured_order": null,
+    "sort_order": 26
+  },
+  {
+    "slug": "ileke",
+    "name": "Ileke",
+    "category": "website",
+    "description": "Design your own crystal bracelet in the browser — pick the stones, spell a name, add a charm — with the price and wrist fit updating live. Paid in naira, strung by hand, delivered nationwide.",
+    "story": "Ileke is Yoruba for beads. It's the design-it-yourself bracelet store, made for Nigeria: 144 stones to choose from, an encyclopedia of what each one is worn for, live pricing and wrist sizing as you build, and naira checkout through Bachs. Every order is strung by hand and delivered across the country.",
+    "tools": [
+      "Laravel",
+      "React",
+      "Inertia",
+      "Tailwind CSS",
+      "Docker"
+    ],
+    "links": {
+      "website": "https://ileke.ng"
+    },
+    "images": [
+      "/images/projects/ileke/ileke-1.webp",
+      "/images/projects/ileke/ileke-2.webp",
+      "/images/projects/ileke/ileke-3.webp",
+      "/images/projects/ileke/ileke-4.webp"
+    ],
+    "year": "2026",
+    "is_featured": false,
+    "featured_order": null,
+    "sort_order": 27
+  },
+  {
+    "slug": "chidinma-onyia",
+    "name": "Chidinma Onyia — Portfolio",
+    "category": "website",
+    "description": "A photography and film portfolio built on one idea: a single \"register\" drives every visual property of the page, so music videos, brand work and documentary each get a look of their own.",
+    "story": "Three bodies of work that do not look alike, and should not. The site keeps one piece of state — the register — and derives the colour, the type and the grade from it, so moving from music videos to documentary re-skins the whole page. TanStack Start on the front, Payload as the CMS she edits herself.",
+    "tools": [
+      "TypeScript",
+      "TanStack Start",
+      "Payload CMS",
+      "Docker"
+    ],
+    "links": {
+      "website": "https://niyalenz.com"
+    },
+    "images": [
+      "/images/projects/chidinma-onyia/chidinma-onyia-1.webp"
+    ],
+    "year": "2026",
+    "is_featured": false,
+    "featured_order": null,
+    "sort_order": 28
+  },
+  {
+    "slug": "the-cone-agency",
+    "name": "The Cone Agency",
+    "category": "website",
+    "description": "The site for a video content and automation agency: turn attention into customers.",
+    "story": "A landing page for The Cone Agency — video content, AI agents and automation for businesses that want more leads. Next.js, one page, one job: get the visitor to book a strategy call.",
+    "tools": [
+      "Next.js",
+      "TypeScript",
+      "Docker"
+    ],
+    "links": {
+      "website": "https://theconeagency.com"
+    },
+    "images": [
+      "/images/projects/the-cone-agency/the-cone-agency-1.webp"
+    ],
+    "year": "2026",
+    "is_featured": false,
+    "featured_order": null,
+    "sort_order": 29
   }
 ]

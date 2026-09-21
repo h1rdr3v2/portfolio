@@ -17,7 +17,7 @@
     "period": "2026",
     "status": null,
     "description": [
-      "Built out the CLHEEAN app and handled its release on the Google Play Console and the App Store."
+      "Packaged the CLHEEAN app for Android and iOS and handled its release on the Google Play Console and the App Store."
     ],
     "is_current": false,
     "sort_order": 101

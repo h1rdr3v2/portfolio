@@ -19,7 +19,7 @@ class SeedingTest extends TestCase
     {
         $this->seed(DatabaseSeeder::class);
 
-        $this->assertSame(19, Project::count());
+        $this->assertSame(29, Project::count());
         $this->assertSame(3, Project::query()->featured()->count());
         $this->assertSame(3, Post::count());
         $this->assertSame(6, Role::count());
@@ -41,7 +41,7 @@ class SeedingTest extends TestCase
         $this->seed(DatabaseSeeder::class);
 
         $this->assertSame(2, Post::count());
-        $this->assertSame(19, Project::count());
+        $this->assertSame(29, Project::count());
         $this->assertSame(6, Role::count());
         $this->assertSame('Edited in the admin', $post->fresh()->title);
         $this->assertNull($post->fresh()->published_at);
