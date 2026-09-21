@@ -3,67 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use App\Models\Reaction;
-use App\Services\ReaderFingerprint;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
-use Inertia\Response;
+use Illuminate\View\View;
 
 class PostController extends Controller
 {
-    public function index(): Response
+    public function index(): View
     {
-        $posts = Post::query()
-            ->published()
-            ->withListCounts()
-            ->get()
-            ->map->toListArray();
-
-        return Inertia::render('blog/index', [
-            'posts' => $posts,
-            'meta' => [
-                'title' => 'Blog — '.config('site.name'),
-                'description' => 'Notes and posts by '.config('site.name').'.',
-            ],
+        return view('blog.index', [
+            'posts' => Post::query()->published()->withListCounts()->get(),
         ]);
     }
 
-    public function show(Request $request, ReaderFingerprint $fingerprint, string $slug): Response
+    public function show(Request $request, string $slug): View
     {
         $post = Post::query()->published()->where('slug', $slug)->firstOrFail();
 
         $this->countView($request, $post);
 
-        $reader = $fingerprint->for($request);
-        $reactions = $post->reactions()
-            ->selectRaw('emoji, count(*) as total, sum(case when fingerprint = ? then 1 else 0 end) as mine', [$reader])
-            ->groupBy('emoji')
-            ->get()
-            ->keyBy('emoji');
-
-        $neighbours = $this->neighbours($post);
-
-        return Inertia::render('blog/show', [
-            'post' => [
-                ...$post->toListArray(),
-                'html' => $post->body_html,
-                'coverImage' => $post->coverImageUrl(),
-            ],
-            'reactions' => collect(Reaction::EMOJIS)->map(fn (string $emoji): array => [
-                'emoji' => $emoji,
-                'count' => (int) ($reactions[$emoji]->total ?? 0),
-                'mine' => (bool) ($reactions[$emoji]->mine ?? false),
-            ])->values(),
-            'comments' => $post->comments()->oldest()->get()->map->toPageArray(),
-            'previous' => $neighbours['previous']?->only(['slug', 'title']),
-            'next' => $neighbours['next']?->only(['slug', 'title']),
-            'meta' => [
-                'title' => $post->title.' — '.config('site.name'),
-                'description' => $post->excerpt ?: config('site.description'),
-                'image' => $post->coverImageUrl(),
-                'type' => 'article',
-                'publishedAt' => $post->published_at?->toIso8601String(),
-            ],
+        return view('blog.show', [
+            'post' => $post,
+            ...$this->neighbours($post),
         ]);
     }
 

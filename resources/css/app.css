@@ -107,6 +107,16 @@
 	::-webkit-scrollbar-thumb:hover {
 		background: hsl(var(--muted-foreground) / 0.4);
 	}
+
+	/* A modal is open: the page behind it stays put. */
+	body:has(dialog[open]) {
+		overflow: hidden;
+	}
+
+	/* Alpine hides these until it has booted, so nothing flashes open. */
+	[x-cloak] {
+		display: none !important;
+	}
 }
 
 /* ── Small personal things ──────────────────────────────────────────────── */

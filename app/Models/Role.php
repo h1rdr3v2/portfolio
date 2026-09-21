@@ -41,19 +41,4 @@ class Role extends Model
     {
         return $query->orderBy('sort_order')->orderBy('id');
     }
-
-    /**
-     * @return array<string, mixed>
-     */
-    public function toPageArray(): array
-    {
-        return [
-            'company' => $this->company,
-            'title' => $this->title,
-            'period' => $this->period,
-            'status' => $this->status,
-            'description' => $this->description ?? [],
-            'isCurrent' => $this->is_current,
-        ];
-    }
 }

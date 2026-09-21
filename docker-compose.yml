@@ -1,8 +1,6 @@
-# The site: one Laravel container (PHP-FPM + nginx) and, optionally, the
-# Inertia SSR server built from the same image.
+# The site: one Laravel container, PHP-FPM behind nginx.
 #
 #   docker compose up --build            site on :3000
-#   docker compose --profile ssr up      …plus server-side rendering
 #
 # First run: the admin account is seeded from ADMIN_EMAIL / ADMIN_PASSWORD.
 #
@@ -31,8 +29,6 @@ services:
       DB_PASSWORD: "${DB_PASSWORD:-}"
       ADMIN_EMAIL: "${ADMIN_EMAIL:-admin@example.com}"
       ADMIN_PASSWORD: "${ADMIN_PASSWORD:-change-me}"
-      INERTIA_SSR_ENABLED: "${INERTIA_SSR_ENABLED:-false}"
-      INERTIA_SSR_URL: http://ssr:13714
       # Trust the proxy in front (Coolify/Traefik) so generated URLs are https.
       TRUSTED_PROXIES: "*"
     volumes:
@@ -45,17 +41,6 @@ services:
       timeout: 3s
       start_period: 15s
       retries: 3
-
-  # Renders the first paint of each page on the server. Same image, no nginx —
-  # just the Node bundle Vite built. Opt in with `--profile ssr` and
-  # INERTIA_SSR_ENABLED=true.
-  ssr:
-    build: .
-    profiles: ["ssr"]
-    command: ["node", "bootstrap/ssr/ssr.js"]
-    environment:
-      AUTORUN_ENABLED: "false"
-    restart: unless-stopped
 
 volumes:
   database:

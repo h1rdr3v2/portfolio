@@ -18,17 +18,4 @@ class Comment extends Model
     {
         return $this->belongsTo(Post::class);
     }
-
-    /**
-     * @return array<string, mixed>
-     */
-    public function toPageArray(): array
-    {
-        return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'body' => $this->body,
-            'createdAt' => $this->created_at?->toIso8601String(),
-        ];
-    }
 }

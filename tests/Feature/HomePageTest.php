@@ -7,7 +7,6 @@ use App\Models\Project;
 use App\Models\Role;
 use App\Models\Snippet;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Inertia\Testing\AssertableInertia as Assert;
 use Tests\TestCase;
 
 class HomePageTest extends TestCase
@@ -16,30 +15,28 @@ class HomePageTest extends TestCase
 
     public function test_it_renders_with_everything_the_page_needs(): void
     {
-        Project::factory()->featured(2)->create(['slug' => 'second']);
-        Project::factory()->featured(1)->create(['slug' => 'first']);
+        Project::factory()->featured(2)->create(['slug' => 'second', 'name' => 'Second App']);
+        Project::factory()->featured(1)->create(['slug' => 'first', 'name' => 'First App']);
         Project::factory()->count(4)->create();
         Post::factory()->count(5)->create();
-        Post::factory()->draft()->create();
-        Role::factory()->current()->create();
+        Post::factory()->draft()->create(['title' => 'Still a draft']);
+        Role::factory()->current()->create(['company' => 'Bleon CO LTD']);
         Role::factory()->count(2)->create();
         Snippet::factory()->create(['key' => 'now', 'body' => 'Building **things**.']);
 
         $this->get('/')
             ->assertOk()
-            ->assertInertia(fn (Assert $page) => $page
-                ->component('home')
-                ->has('featured', 2)
-                ->where('featured.0.slug', 'first')
-                ->has('featured.0.images', 2)
-                ->has('projects', 4)
-                ->has('posts', 3)
-                ->where('postCount', 5)
-                ->has('currentRoles', 1)
-                ->has('formerRoles', 2)
-                ->where('now', "<p>Building <strong>things</strong>.</p>\n")
-                ->has('site.socials'),
-            );
+            ->assertViewIs('home')
+            ->assertViewHas('featured', fn ($featured) => $featured->pluck('slug')->all() === ['first', 'second'])
+            ->assertViewHas('projects', fn ($projects) => $projects->count() === 4)
+            ->assertViewHas('posts', fn ($posts) => $posts->count() === 3)
+            ->assertViewHas('postCount', 5)
+            ->assertViewHas('currentRoles', fn ($roles) => $roles->count() === 1)
+            ->assertViewHas('formerRoles', fn ($roles) => $roles->count() === 2)
+            ->assertSeeInOrder(['First App', 'Second App'])
+            ->assertSee('Building <strong>things</strong>.', false)
+            ->assertSee('Bleon CO LTD')
+            ->assertDontSee('Still a draft');
     }
 
     public function test_the_social_preview_tags_are_in_the_html(): void
@@ -48,6 +45,7 @@ class HomePageTest extends TestCase
             ->assertOk()
             ->assertSee('property="og:title"', false)
             ->assertSee('property="og:image"', false)
+            ->assertSee('application/ld+json', false)
             ->assertSee(config('site.name'));
     }
 
@@ -55,11 +53,9 @@ class HomePageTest extends TestCase
     {
         $this->get('/')
             ->assertOk()
-            ->assertInertia(fn (Assert $page) => $page
-                ->component('home')
-                ->has('featured', 0)
-                ->has('posts', 0)
-                ->where('now', null),
-            );
+            ->assertViewHas('featured', fn ($featured) => $featured->isEmpty())
+            ->assertViewHas('now', null)
+            ->assertDontSee('Featured')
+            ->assertSee("Let's Keep in Touch", false);
     }
 }

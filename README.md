@@ -1,7 +1,7 @@
 # deveze.bleon.net
 
-Personal site and blog. Laravel + Inertia (React) on the front, Filament on
-the back, one app.
+Personal site and blog. Laravel with Blade and Livewire on the front, Filament
+on the back, one app, one container.
 
 ```bash
 composer run setup     # deps, .env, key, migrate, npm install, build
@@ -22,29 +22,34 @@ The admin is at `/admin`. Sign in with `ADMIN_EMAIL` / `ADMIN_PASSWORD` from
 | Rewrite "What I'm working on" | `/admin/snippets` → `now` |
 | Moderate comments | `/admin/comments` |
 | Change your name, role, email, socials, booking link | `config/site.php` |
-| The intro line, the colours, the fonts | `resources/js/features/about-section.tsx`, `resources/css/app.css` |
+| The intro line, the colours, the fonts | `resources/views/home.blade.php`, `resources/css/app.css` |
 
 Readers can react (six emojis, one tap toggles) and comment on posts, both
-anonymously; a fingerprint of IP + user agent stops double-counting. Views are
-counted once per session. `/rss.xml` is the feed.
+anonymously through Livewire; a fingerprint of IP + user agent stops
+double-counting. Views are counted once per session. `/rss.xml` is the feed.
 
 ## Layout
 
 ```
 app/
 ├── Models/            Post, Project, Role, Snippet, Comment, Reaction
-├── Http/Controllers/  Home, Post (index/show), Reaction, Comment, Feed
+├── Http/Controllers/  Home, Post (index/show), Feed, Sitemap
+├── Livewire/          PostReactions, PostComments — the two interactive parts
 ├── Filament/          The admin — one resource per model
-├── Services/          Markdown (rendered on save into *_html), ReaderFingerprint
-config/site.php        Identity. Shared with every page as the `site` prop.
+├── Services/          Markdown (rendered on save), ImageOptimizer, ReaderFingerprint
+config/site.php        Identity, read straight from the views
 resources/
 ├── css/app.css        Design tokens: the palette, no webfonts, motion
-├── js/pages/          One file per Inertia page: home, blog/index, blog/show, error
-├── js/features/       The homepage sections, top to bottom
-├── js/components/     UI primitives, project, blog, layout, theme
-└── views/app.blade.php  Root template — meta/OG tags and the pre-paint theme script
+├── js/app.js          Alpine components (the light switch, lightbox, hand) + Livewire
+├── views/home, blog/  The pages
+├── views/components/  layouts/site (the frame + meta tags), site/, project/, blog/, ui/
+├── views/livewire/    The two Livewire views
+└── views/errors/      404 and friends, in the site's own frame
 database/seeders/data/ The seed content as JSON/markdown
 ```
+
+Pages are server-rendered Blade: the HTML arrives complete, and the only
+JavaScript is Livewire's bundle plus a few Alpine components.
 
 Posts and snippets store markdown; the HTML is rendered once, on save, by
 `App\Services\Markdown` (league/commonmark + tempest/highlight). Uploaded
@@ -53,13 +58,12 @@ screenshots stay in `public/images/projects`.
 
 ## Deploying
 
-`Dockerfile` builds the assets (client + SSR bundle) and ships PHP-FPM + nginx
-in one image. `docker-compose.yml` runs it on `:3000` with volumes for the
-SQLite database and uploads, and an optional `ssr` service:
+`Dockerfile` builds the assets and ships PHP-FPM + nginx in one image.
+`docker-compose.yml` runs it on `:3000` with volumes for the SQLite database
+and uploads:
 
 ```bash
 APP_KEY=... ADMIN_EMAIL=... ADMIN_PASSWORD=... docker compose up --build
-docker compose --profile ssr up          # with server-side rendering
 ```
 
 Set `DB_*` to MySQL to skip SQLite. Migrations run on boot; seeding is manual and only ever fills empty tables, so it is safe to run again.
@@ -70,5 +74,5 @@ Set `DB_*` to MySQL to skip SQLite. Migrations run on boot; seeding is manual an
 php artisan test
 ```
 
-Feature tests cover every public page, reactions, comments, the feed, and
-every admin page; the markdown pipeline has unit tests.
+Feature tests cover every public page, the two Livewire components, the feed,
+seeding, and every admin page; the markdown pipeline has unit tests.

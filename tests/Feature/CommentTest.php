@@ -2,8 +2,10 @@
 
 namespace Tests\Feature;
 
+use App\Livewire\PostComments;
 use App\Models\Post;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Livewire\Livewire;
 use Tests\TestCase;
 
 class CommentTest extends TestCase
@@ -14,23 +16,30 @@ class CommentTest extends TestCase
     {
         $post = Post::factory()->create();
 
-        $this->from("/blog/{$post->slug}")
-            ->post("/blog/{$post->slug}/comments", ['name' => '  Obiabo ', 'body' => 'Nice one.'])
-            ->assertRedirect("/blog/{$post->slug}")
-            ->assertSessionHas('status', 'comment-posted');
+        Livewire::test(PostComments::class, ['post' => $post])
+            ->set('open', true)
+            ->set('name', '  Obiabo ')
+            ->set('body', 'Nice one.')
+            ->call('send')
+            ->assertHasNoErrors()
+            ->assertSet('open', false)
+            ->assertSet('body', '')
+            ->assertSee('Obiabo')
+            ->assertSee('Nice one.');
 
         $this->assertDatabaseHas('comments', ['post_id' => $post->id, 'name' => 'Obiabo', 'body' => 'Nice one.']);
-
-        $this->get("/blog/{$post->slug}")
-            ->assertInertia(fn ($page) => $page->has('comments', 1)->where('comments.0.name', 'Obiabo'));
     }
 
     public function test_the_honeypot_rejects_bots(): void
     {
         $post = Post::factory()->create();
 
-        $this->post("/blog/{$post->slug}/comments", ['name' => 'Bot', 'body' => 'Buy now', 'website' => 'http://spam'])
-            ->assertSessionHasErrors('website');
+        Livewire::test(PostComments::class, ['post' => $post])
+            ->set('name', 'Bot')
+            ->set('body', 'Buy now')
+            ->set('website', 'http://spam')
+            ->call('send')
+            ->assertHasErrors('website');
 
         $this->assertDatabaseCount('comments', 0);
     }
@@ -39,7 +48,8 @@ class CommentTest extends TestCase
     {
         $post = Post::factory()->create();
 
-        $this->post("/blog/{$post->slug}/comments", [])
-            ->assertSessionHasErrors(['name', 'body']);
+        Livewire::test(PostComments::class, ['post' => $post])
+            ->call('send')
+            ->assertHasErrors(['name', 'body']);
     }
 }

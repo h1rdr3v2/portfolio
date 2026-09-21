@@ -2,8 +2,10 @@
 
 namespace Tests\Feature;
 
+use App\Livewire\PostReactions;
 use App\Models\Post;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Livewire\Livewire;
 use Tests\TestCase;
 
 class ReactionTest extends TestCase
@@ -14,41 +16,33 @@ class ReactionTest extends TestCase
     {
         $post = Post::factory()->create();
 
-        $this->from("/blog/{$post->slug}")
-            ->post("/blog/{$post->slug}/reactions", ['emoji' => '🔥'])
-            ->assertRedirect("/blog/{$post->slug}");
+        $component = Livewire::test(PostReactions::class, ['post' => $post]);
+
+        $component->call('toggle', '🔥');
         $this->assertDatabaseCount('reactions', 1);
+        $component->assertViewHas('reactions', fn ($reactions) => $reactions->firstWhere('emoji', '🔥')['count'] === 1
+            && $reactions->firstWhere('emoji', '🔥')['mine'] === true
+            && $reactions->firstWhere('emoji', '👍')['mine'] === false);
 
-        $this->post("/blog/{$post->slug}/reactions", ['emoji' => '🔥']);
+        $component->call('toggle', '🔥');
         $this->assertDatabaseCount('reactions', 0);
-    }
-
-    public function test_the_page_reports_which_reactions_are_mine(): void
-    {
-        $post = Post::factory()->create();
-        $this->post("/blog/{$post->slug}/reactions", ['emoji' => '❤️']);
-
-        $this->get("/blog/{$post->slug}")
-            ->assertInertia(fn ($page) => $page
-                ->where('reactions.1.emoji', '❤️')
-                ->where('reactions.1.count', 1)
-                ->where('reactions.1.mine', true)
-                ->where('reactions.0.mine', false),
-            );
     }
 
     public function test_only_the_known_emojis_are_accepted(): void
     {
         $post = Post::factory()->create();
 
-        $this->post("/blog/{$post->slug}/reactions", ['emoji' => '🍕'])
-            ->assertSessionHasErrors('emoji');
+        Livewire::test(PostReactions::class, ['post' => $post])->call('toggle', '🍕');
+
+        $this->assertDatabaseCount('reactions', 0);
     }
 
     public function test_drafts_cannot_be_reacted_to(): void
     {
         $post = Post::factory()->draft()->create();
 
-        $this->post("/blog/{$post->slug}/reactions", ['emoji' => '🔥'])->assertNotFound();
+        Livewire::test(PostReactions::class, ['post' => $post])->call('toggle', '🔥');
+
+        $this->assertDatabaseCount('reactions', 0);
     }
 }

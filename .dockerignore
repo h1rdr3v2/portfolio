@@ -13,7 +13,6 @@ storage/framework/sessions/*
 storage/framework/views/*
 storage/logs/*
 database/*.sqlite*
-bootstrap/ssr
 tests
 .claude
 .mcp.json

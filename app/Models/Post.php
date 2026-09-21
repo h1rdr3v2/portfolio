@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -111,30 +112,21 @@ class Post extends Model
     }
 
     /**
-     * The list-row shape: everything but the body.
+     * The most-used emojis with their counts, most first. Reads the grouped
+     * relation loaded by the `withListCounts` scope.
      *
-     * @return array<string, mixed>
+     * @return Collection<int, array{emoji: string, count: int}>
      */
-    public function toListArray(): array
+    public function topReactions(int $limit = 2): Collection
     {
-        $reactions = $this->relationLoaded('reactions')
-            ? $this->reactions->sortByDesc('total')->values()
-            : collect();
+        if (! $this->relationLoaded('reactions')) {
+            return collect();
+        }
 
-        return [
-            'slug' => $this->slug,
-            'title' => $this->title,
-            'excerpt' => $this->excerpt,
-            'tags' => $this->tags ?? [],
-            'readingMinutes' => $this->reading_minutes,
-            'views' => $this->views,
-            'publishedAt' => $this->published_at?->toIso8601String(),
-            'reactionsCount' => (int) $reactions->sum('total'),
-            'topReactions' => $reactions->take(2)->map(fn (Reaction $reaction): array => [
-                'emoji' => $reaction->emoji,
-                'count' => (int) $reaction->total,
-            ])->all(),
-            'commentsCount' => (int) ($this->comments_count ?? 0),
-        ];
+        return $this->reactions
+            ->sortByDesc('total')
+            ->take($limit)
+            ->map(fn (Reaction $reaction): array => ['emoji' => $reaction->emoji, 'count' => (int) $reaction->total])
+            ->values();
     }
 }

@@ -116,24 +116,41 @@ class Project extends Model
         });
     }
 
-    /**
-     * The shape the front end receives.
-     *
-     * @return array<string, mixed>
-     */
-    public function toPageArray(): array
+    /** What a list row says about the project: the description, or the story's first sentence. */
+    public function summary(): string
     {
-        return [
-            'slug' => $this->slug,
-            'name' => $this->name,
-            'category' => $this->category->value,
-            'categoryLabel' => $this->category->getLabel(),
-            'description' => $this->description,
-            'story' => $this->story,
-            'tools' => $this->tools ?? [],
-            'links' => array_filter($this->links ?? []),
-            'images' => $this->imageEntries(),
-            'year' => $this->year,
+        if ($this->description) {
+            return $this->description;
+        }
+
+        preg_match('/^.*?[.!?](?=\s|$)/', $this->story, $match);
+
+        return $match[0] ?? $this->story;
+    }
+
+    /**
+     * Links in display order — stores first, source last — with a label and icon each.
+     *
+     * @return array<int, array{url: string, label: string, icon: string}>
+     */
+    public function linkButtons(): array
+    {
+        $kinds = [
+            'appstore' => ['App Store', 'apple'],
+            'playstore' => ['Play Store', 'play'],
+            'website' => ['Website', 'globe'],
+            'telegram' => ['Telegram', 'telegram'],
+            'whatsapp' => ['WhatsApp', 'whatsapp'],
+            'github' => ['GitHub', 'github'],
         ];
+
+        $buttons = [];
+        foreach ($kinds as $kind => [$label, $icon]) {
+            if (! empty($this->links[$kind])) {
+                $buttons[] = ['url' => $this->links[$kind], 'label' => $label, 'icon' => $icon];
+            }
+        }
+
+        return $buttons;
     }
 }
