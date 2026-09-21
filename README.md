@@ -54,7 +54,7 @@ screenshots stay in `public/images/projects`.
 ## Deploying
 
 `Dockerfile` builds the assets (client + SSR bundle) and ships PHP-FPM + nginx
-in one image. `../docker-compose.yml` runs it on `:3000` with volumes for the
+in one image. `docker-compose.yml` runs it on `:3000` with volumes for the
 SQLite database and uploads, and an optional `ssr` service:
 
 ```bash
