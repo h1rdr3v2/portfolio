@@ -79,12 +79,16 @@ class BlogTest extends TestCase
         $this->get("/blog/{$scheduled->slug}")->assertNotFound();
     }
 
-    public function test_the_404_page_is_the_site_s_own(): void
+    public function test_the_404_page_is_bare_but_in_the_site_s_frame(): void
     {
         $this->get('/nope')
             ->assertNotFound()
             ->assertSee("This page doesn't exist.")
-            ->assertSee(config('site.name'));
+            ->assertSee('Go home')
+            ->assertSee('resources/css/app.css', false)
+            ->assertDontSee(config('site.location'))
+            ->assertDontSee('signature-crop', false)
+            ->assertDontSee('>RSS<', false);
     }
 
     public function test_saving_a_post_renders_its_markdown_and_reading_time(): void

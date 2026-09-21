@@ -4,6 +4,10 @@
     'image' => null,
     'type' => 'website',
     'publishedAt' => null,
+    /** Whether the identity block heads the page. Error pages go without. */
+    'header' => true,
+    /** What ends the page: 'signature' (the homepage), 'line' (everything else), or 'none'. */
+    'footer' => 'line',
 ])
 
 @php
@@ -83,9 +87,17 @@
 </head>
 <body class="bg-background text-foreground">
     <main class="relative mx-auto flex min-h-screen w-full max-w-[640px] flex-col items-center gap-14 px-6 pt-10 pb-16 md:pt-14">
-        <x-site.identity />
+        @if ($header)
+            <x-site.identity />
+        @endif
+
         {{ $slot }}
-        <x-site.footer />
+
+        @if ($footer === 'signature')
+            <x-site.footer-signature />
+        @elseif ($footer === 'line')
+            <x-site.footer-line />
+        @endif
     </main>
 
     @livewireScriptConfig

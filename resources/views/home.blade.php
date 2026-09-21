@@ -1,4 +1,4 @@
-<x-layouts.site>
+<x-layouts.site footer="signature">
     {{-- The first site's opening line, kept word for word. --}}
     <section class="w-full">
         <p class="text-2xl leading-snug font-medium">

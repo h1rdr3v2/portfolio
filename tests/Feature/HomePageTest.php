@@ -49,6 +49,15 @@ class HomePageTest extends TestCase
             ->assertSee(config('site.name'));
     }
 
+    public function test_the_signature_signs_off_the_homepage_only(): void
+    {
+        Post::factory()->create();
+
+        $this->get('/')->assertOk()->assertSee('signature-crop', false)->assertDontSee('>RSS<', false);
+        $this->get('/blog')->assertOk()->assertDontSee('signature-crop', false)->assertSee('>RSS<', false);
+        $this->get('/blog/'.Post::first()->slug)->assertOk()->assertDontSee('signature-crop', false)->assertSee('>RSS<', false);
+    }
+
     public function test_it_copes_with_an_empty_database(): void
     {
         $this->get('/')
