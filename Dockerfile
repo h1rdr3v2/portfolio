@@ -36,7 +36,10 @@ WORKDIR /var/www/html
 # already exists, and the automations test the connection before `migrate`
 # could create it; and when a database is unreachable the automations only
 # count down, so say why.
+# The base image ships without intl (Filament tables format counts with it)
+# and gd (ImageOptimizer writes webp with it).
 USER root
+RUN install-php-extensions intl gd
 COPY <<'EOF' /etc/entrypoint.d/10-database.sh
 #!/bin/sh
 app="${APP_BASE_DIR:-/var/www/html}"
