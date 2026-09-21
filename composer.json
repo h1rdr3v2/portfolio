@@ -11,6 +11,7 @@
         "laravel/framework": "^13.17",
         "laravel/tinker": "^3.0",
         "livewire/livewire": "^4.4",
+        "symfony/yaml": "^8.1",
         "tempest/highlight": "^2.28"
     },
     "require-dev": {
