@@ -5,7 +5,7 @@ on the back, one app, one container.
 
 ```bash
 composer run setup     # deps, .env, key, migrate, npm install, build
-php artisan db:seed    # projects, roles, the three sample posts, the admin — empty tables only
+php artisan db:seed    # projects, roles, the three posts, the admin — empty tables only
 composer run dev       # php server on :8000 + vite + queue + logs
 ```
 

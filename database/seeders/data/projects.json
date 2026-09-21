@@ -359,7 +359,7 @@
     "name": "bleon.net",
     "category": "website",
     "description": null,
-    "story": "Needed a proper company landing page for Bleon — funny enough, I started the company because I needed a license to run CreditWithBleon, the AI chatbot that vends data. Built something clean and powerful that same year.",
+    "story": "Bleon is the studio my work ships under — CreditWithBleon first, MySales and LedgerCopilot since — and it needed a proper home: a page that says what the studio builds and how to work with it, in one scroll. Built it in 2023, clean and powerful.",
     "tools": [
       "Next.js",
       "TypeScript"

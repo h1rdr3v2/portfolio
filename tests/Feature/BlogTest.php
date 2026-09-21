@@ -6,6 +6,7 @@ use App\Models\Comment;
 use App\Models\Post;
 use App\Models\Reaction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Vite;
 use Tests\TestCase;
 
 class BlogTest extends TestCase
@@ -85,7 +86,7 @@ class BlogTest extends TestCase
             ->assertNotFound()
             ->assertSee("This page doesn't exist.")
             ->assertSee('Go home')
-            ->assertSee('resources/css/app.css', false)
+            ->assertSee(Vite::asset('resources/css/app.css'), false)
             ->assertDontSee(config('site.location'))
             ->assertDontSee('signature-crop', false)
             ->assertDontSee('>RSS<', false);
