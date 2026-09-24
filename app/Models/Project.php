@@ -134,9 +134,10 @@ class Project extends Model
             return $this->description;
         }
 
-        preg_match('/^.*?[.!?](?=\s|$)/', $this->story, $match);
+        $story = (string) $this->story;
+        preg_match('/^.*?[.!?](?=\s|$)/', $story, $match);
 
-        return $match[0] ?? $this->story;
+        return $match[0] ?? $story;
     }
 
     /**

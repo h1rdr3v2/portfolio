@@ -13,7 +13,9 @@
         <p class="mt-2.5 text-[15px] leading-relaxed text-foreground/90">{{ $project->description }}</p>
     @endif
 
-    <p class="mt-2 text-sm leading-relaxed text-muted-foreground">{{ $project->story }}</p>
+    @if ($project->story)
+        <p class="mt-2 text-sm leading-relaxed text-muted-foreground">{{ $project->story }}</p>
+    @endif
 
     <x-project.case-study :project="$project" class="mt-4" />
 

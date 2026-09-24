@@ -2,8 +2,8 @@
     <section class="flex w-full flex-col gap-5">
         <p class="text-2xl leading-snug font-medium">
             Ndewo <span x-data="wavingHand" @mouseenter="wave()" @mousemove="wave()" role="img" aria-label="waving hand"><span class="waving-hand" :data-waving="waving">👋</span></span>
-            — I build iOS and Android apps for startups and businesses in <span class="country">{{ config('site.country') }}</span> and beyond, from the first sketch to the App Store and Play Store, backend included.
-            <span class="text-muted-foreground">MyCGPA has been live since 2023, and I've shipped apps for market traders and the National Orientation Agency.</span>
+            I build iOS and Android apps for startups and businesses in <span class="country">{{ config('site.country') }}</span> and beyond, from the first sketch to the App Store and Play Store, backend included.
+            <span class="text-muted-foreground">MyCGPA has been live since 2023 with 5,000+ students, and I've built an app for market traders and shipped one for the National Orientation Agency.</span>
         </p>
         <x-site.book-call>Tell me what you're building.</x-site.book-call>
     </section>

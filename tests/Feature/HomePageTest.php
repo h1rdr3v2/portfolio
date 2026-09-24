@@ -70,6 +70,17 @@ class HomePageTest extends TestCase
         $this->assertSame(1, substr_count($this->get('/')->getContent(), 'The problem'));
     }
 
+    public function test_a_project_without_a_story_still_renders(): void
+    {
+        Project::factory()->featured()->create(['name' => 'No Story Card', 'story' => null]);
+        Project::factory()->create(['name' => 'No Story Row', 'description' => null, 'story' => null]);
+
+        $this->get('/')
+            ->assertOk()
+            ->assertSee('No Story Card')
+            ->assertSee('No Story Row');
+    }
+
     public function test_the_social_preview_tags_are_in_the_html(): void
     {
         $this->get('/')

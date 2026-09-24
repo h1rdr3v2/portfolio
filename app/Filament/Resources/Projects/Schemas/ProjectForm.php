@@ -53,10 +53,9 @@ class ProjectForm
                             ->columnSpanFull()
                             ->helperText('What it is, in one or two lines. Shown under the name and in the list.'),
                         Textarea::make('story')
-                            ->required()
                             ->rows(4)
                             ->columnSpanFull()
-                            ->helperText('Why it exists, in your own words. Shown in italics as a quote.'),
+                            ->helperText('Optional. Why it exists, in your own words, shown under the description.'),
                         TagsInput::make('tools')
                             ->placeholder('React Native, NestJS…')
                             ->columnSpanFull(),

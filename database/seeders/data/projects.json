@@ -4,7 +4,7 @@
     "name": "LedgerCopilot",
     "category": "mobile",
     "description": "An AI-powered personal finance app that helps you track expenses, parse bank statements, and monitor your financial health — all from your pocket.",
-    "story": "Felt like something else had my pocket — money would just disappear without a trace. So I built LedgerCopilot to take back control: AI-powered expense tracking, smart bank statement parsing, and a financial health dashboard that actually tells you where your money is going.",
+    "story": null,
     "tools": [
       "React Native",
       "NestJS",
@@ -29,7 +29,7 @@
     "name": "MySales",
     "category": "mobile",
     "description": "An offline-first, privacy-respecting profit tracker built for Nigerian market traders, shop owners, and small business operators who need to know if they're making wins or losses — no internet required.",
-    "story": "A rising need from Grace needing an offline, easy-to-use app to record her sales and know if she's making wins or losses. So I built MySales — no accounts, no cloud, just your data on your device. Built for the market trader who needs clarity, not complexity.",
+    "story": null,
     "tools": [
       "React Native",
       "Expo",
@@ -78,8 +78,8 @@
     "slug": "mycgpa",
     "name": "MyCGPA",
     "category": "mobile",
-    "description": "A user-friendly mobile app designed to help university students track and calculate their CGPA effortlessly.",
-    "story": "Started as a bare React Native app in 2023 to help university students track their CGPA. Migrated the entire codebase to Expo in 2025 for better DX and OTA updates. Been solo maintaining and shipping updates ever since.",
+    "description": "A CGPA tracker for university students: add your courses once and always know where you stand.",
+    "story": "I built it in 2023 because I was tired of working out my own CGPA by hand. It grew by word of mouth, with zero marketing. Rebuilt on Expo in 2025, and I'm still maintaining and updating it.",
     "problem": "Students worked out their CGPA by hand, and one wrong grade point threw the whole number off.",
     "outcome": "Students add their courses once and always know their CGPA, with any semester editable when results change.",
     "metrics": [
