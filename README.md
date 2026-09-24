@@ -18,6 +18,7 @@ The admin is at `/admin`. Sign in with `ADMIN_EMAIL` / `ADMIN_PASSWORD` from
 | --- | --- |
 | Write or publish a post | `/admin/posts` — markdown, code fences highlighted, empty date = draft, future date = scheduled |
 | Add a project, feature it, reorder the list | `/admin/projects` — drag rows to reorder, toggle *Featured* |
+| Add a post from `database/seeders/data/posts` to a seeded site | `php artisan posts:import` — same as below, for posts |
 | Add a project from the seed file to a seeded site | `php artisan projects:import` — inserts what the database is missing, shows the list and asks first |
 | Update roles | `/admin/roles` |
 | Rewrite "What I'm working on" | `/admin/snippets` → `now` |
