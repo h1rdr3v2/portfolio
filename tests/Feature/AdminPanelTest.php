@@ -7,6 +7,7 @@ use App\Models\Post;
 use App\Models\Project;
 use App\Models\Role;
 use App\Models\Snippet;
+use App\Models\Testimonial;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -28,6 +29,7 @@ class AdminPanelTest extends TestCase
         $project = Project::factory()->create();
         $role = Role::factory()->create();
         $snippet = Snippet::factory()->create(['key' => 'now']);
+        $testimonial = Testimonial::factory()->create();
         Comment::factory()->for($post)->create();
 
         $pages = [
@@ -43,6 +45,9 @@ class AdminPanelTest extends TestCase
             "/admin/roles/{$role->id}/edit",
             '/admin/snippets',
             "/admin/snippets/{$snippet->id}/edit",
+            '/admin/testimonials',
+            '/admin/testimonials/create',
+            "/admin/testimonials/{$testimonial->id}/edit",
             '/admin/comments',
         ];
 

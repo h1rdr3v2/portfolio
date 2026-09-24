@@ -1,11 +1,11 @@
 <x-layouts.site footer="signature">
-    {{-- The first site's opening line, kept word for word. --}}
-    <section class="w-full">
+    <section class="flex w-full flex-col gap-5">
         <p class="text-2xl leading-snug font-medium">
             Ndewo <span x-data="wavingHand" @mouseenter="wave()" @mousemove="wave()" role="img" aria-label="waving hand"><span class="waving-hand" :data-waving="waving">👋</span></span>
-            — I'm a software engineer and a mobile app developer based in <span class="country">{{ config('site.country') }}</span>, passionate about making things simple and automating daily tasks.
-            <span class="text-muted-foreground">My focus is on trying to keep up with security and best practices and always looking for new things to learn.</span>
+            — I build iOS and Android apps for startups and businesses in <span class="country">{{ config('site.country') }}</span> and beyond, from the first sketch to the App Store and Play Store, backend included.
+            <span class="text-muted-foreground">MyCGPA has been live since 2023, and I've shipped apps for market traders and the National Orientation Agency.</span>
         </p>
+        <x-site.book-call>Tell me what you're building.</x-site.book-call>
     </section>
 
     @if ($featured->isNotEmpty())
@@ -14,6 +14,30 @@
             <div class="mt-5 flex flex-col gap-14">
                 @foreach ($featured as $project)
                     <x-project.card :project="$project" :eager="$loop->first" />
+                @endforeach
+            </div>
+            <x-site.book-call class="mt-10">Want an app like these?</x-site.book-call>
+        </section>
+    @endif
+
+    @if ($testimonials->isNotEmpty())
+        <section class="w-full">
+            <x-ui.section-heading>What clients say</x-ui.section-heading>
+            <div class="mt-4 grid gap-2.5 sm:grid-cols-2">
+                @foreach ($testimonials as $testimonial)
+                    <figure class="flex flex-col justify-between gap-4 rounded-lg bg-card p-5">
+                        <blockquote class="text-[15px] leading-relaxed text-foreground/90">“{{ $testimonial->quote }}”</blockquote>
+                        <figcaption class="text-sm">
+                            @if ($testimonial->url)
+                                <a href="{{ $testimonial->url }}" target="_blank" rel="noopener noreferrer" class="font-semibold transition-colors hover:text-accent">{{ $testimonial->author }}</a>
+                            @else
+                                <span class="font-semibold">{{ $testimonial->author }}</span>
+                            @endif
+                            @if ($testimonial->author_title)
+                                <span class="block text-muted-foreground">{{ $testimonial->author_title }}</span>
+                            @endif
+                        </figcaption>
+                    </figure>
                 @endforeach
             </div>
         </section>
@@ -137,9 +161,9 @@
         <div class="flex flex-col gap-2.5 text-center">
             <h2 class="text-3xl font-bold">Let's Keep in Touch</h2>
             <p class="text-muted-foreground">
-                Working on something and want another pair of hands?
-                <a href="{{ $site['calendar_url'] }}" target="_blank" rel="noopener noreferrer" class="text-accent underline decoration-accent/40 underline-offset-4 transition-colors hover:decoration-accent">Book a call</a>,
-                or just say hi — either is fine.
+                Have an app in mind?
+                <a href="{{ $site['calendar_url'] }}" target="_blank" rel="noopener noreferrer" class="text-accent underline decoration-accent/40 underline-offset-4 transition-colors hover:decoration-accent">Book a call</a>
+                and tell me what you're building.
             </p>
         </div>
         <div class="flex flex-wrap items-center justify-center gap-x-2 gap-y-2 md:gap-x-4">

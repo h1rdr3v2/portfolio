@@ -43,6 +43,8 @@
 
                 <p class="mt-2 text-sm leading-relaxed text-muted-foreground">{{ $project->story }}</p>
 
+                <x-project.case-study :project="$project" class="mt-5" />
+
                 <x-ui.tag-list :items="$project->tools ?? []" class="mt-4" />
 
                 <x-project.links :project="$project" class="mt-4" />

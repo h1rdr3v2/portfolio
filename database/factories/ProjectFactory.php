@@ -40,4 +40,16 @@ class ProjectFactory extends Factory
             'images' => ['/images/projects/mysales/image-1.png', '/images/projects/mysales/image-2.png'],
         ]);
     }
+
+    public function withCaseStudy(): static
+    {
+        return $this->state(fn (): array => [
+            'problem' => fake()->sentence(),
+            'outcome' => fake()->sentence(),
+            'metrics' => [
+                ['value' => '4.8★', 'label' => 'Play Store rating'],
+                ['value' => '3 yrs', 'label' => 'live in production'],
+            ],
+        ]);
+    }
 }

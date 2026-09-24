@@ -15,6 +15,8 @@
 
     <p class="mt-2 text-sm leading-relaxed text-muted-foreground">{{ $project->story }}</p>
 
+    <x-project.case-study :project="$project" class="mt-4" />
+
     <x-ui.tag-list :items="$project->tools ?? []" class="mt-3" />
 
     <x-project.links :project="$project" class="mt-3.5" />

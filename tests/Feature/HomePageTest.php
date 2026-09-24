@@ -6,6 +6,7 @@ use App\Models\Post;
 use App\Models\Project;
 use App\Models\Role;
 use App\Models\Snippet;
+use App\Models\Testimonial;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -39,6 +40,36 @@ class HomePageTest extends TestCase
             ->assertDontSee('Still a draft');
     }
 
+    public function test_published_testimonials_are_shown_in_order(): void
+    {
+        Testimonial::factory()->create(['author' => 'Second Client', 'sort_order' => 2]);
+        Testimonial::factory()->create(['author' => 'First Client', 'author_title' => 'Founder, HafrikPlay', 'sort_order' => 1]);
+        Testimonial::factory()->unpublished()->create(['author' => 'Hidden Client']);
+
+        $this->get('/')
+            ->assertOk()
+            ->assertSee('What clients say')
+            ->assertSeeInOrder(['First Client', 'Founder, HafrikPlay', 'Second Client'])
+            ->assertDontSee('Hidden Client');
+    }
+
+    public function test_a_featured_project_shows_its_case_study(): void
+    {
+        Project::factory()->featured()->withCaseStudy()->create([
+            'problem' => 'Traders kept their books on paper.',
+            'outcome' => 'Profit tracked daily, offline.',
+            'metrics' => [['value' => '3 yrs', 'label' => 'live in production']],
+        ]);
+        Project::factory()->featured(2)->create(['name' => 'Story Only']);
+
+        $this->get('/')
+            ->assertOk()
+            ->assertSeeInOrder(['live in production', '3 yrs', 'The problem', 'Traders kept their books on paper.', 'The result', 'Profit tracked daily, offline.'])
+            ->assertSee('Want an app like these?');
+
+        $this->assertSame(1, substr_count($this->get('/')->getContent(), 'The problem'));
+    }
+
     public function test_the_social_preview_tags_are_in_the_html(): void
     {
         $this->get('/')
@@ -65,6 +96,8 @@ class HomePageTest extends TestCase
             ->assertViewHas('featured', fn ($featured) => $featured->isEmpty())
             ->assertViewHas('now', null)
             ->assertDontSee('Featured')
+            ->assertDontSee('What clients say')
+            ->assertSee(config('site.calendar_url'))
             ->assertSee("Let's Keep in Touch", false);
     }
 }

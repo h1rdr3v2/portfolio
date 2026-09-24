@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Projects\Schemas;
 
 use App\Enums\ProjectCategory;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\Textarea;
@@ -59,6 +60,34 @@ class ProjectForm
                         TagsInput::make('tools')
                             ->placeholder('React Native, NestJS…')
                             ->columnSpanFull(),
+                    ]),
+
+                Section::make('Case study')
+                    ->description('What the client needed and what they got. Leave it all empty and the project shows only its story.')
+                    ->columns(2)
+                    ->collapsible()
+                    ->components([
+                        Textarea::make('problem')
+                            ->rows(3)
+                            ->maxLength(600)
+                            ->helperText('The situation before: who needed it and what was in the way.'),
+                        Textarea::make('outcome')
+                            ->label('Result')
+                            ->rows(3)
+                            ->maxLength(600)
+                            ->helperText('What changed once it shipped. Real numbers beat adjectives.'),
+                        Repeater::make('metrics')
+                            ->label('Numbers')
+                            ->schema([
+                                TextInput::make('value')->required()->maxLength(20)->placeholder('12k'),
+                                TextInput::make('label')->required()->maxLength(60)->placeholder('downloads'),
+                            ])
+                            ->columns(2)
+                            ->maxItems(4)
+                            ->reorderable()
+                            ->addActionLabel('Add number')
+                            ->columnSpanFull()
+                            ->helperText('Up to four, shown large on the featured card. Only numbers you can back up.'),
                     ]),
 
                 Section::make('Screenshots')

@@ -6,6 +6,7 @@ use App\Models\Post;
 use App\Models\Project;
 use App\Models\Role;
 use App\Models\Snippet;
+use App\Models\Testimonial;
 use Illuminate\View\View;
 
 class HomeController extends Controller
@@ -22,6 +23,7 @@ class HomeController extends Controller
             'now' => Snippet::html('now'),
             'featured' => Project::query()->featured()->get(),
             'projects' => Project::query()->notFeatured()->get(),
+            'testimonials' => Testimonial::query()->published()->get(),
             'posts' => (clone $publishedPosts)->limit(self::POST_LIMIT)->get(),
             'postCount' => (clone $publishedPosts)->count(),
             'currentRoles' => $roles->where('is_current', true)->values(),

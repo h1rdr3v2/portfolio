@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Storage;
  * @property array<int, string>|null $tools
  * @property array<string, string>|null $links
  * @property array<int, string>|null $images
+ * @property array<int, array{value: string, label: string}>|null $metrics
  */
 class Project extends Model
 {
@@ -28,6 +29,9 @@ class Project extends Model
         'category',
         'description',
         'story',
+        'problem',
+        'outcome',
+        'metrics',
         'tools',
         'links',
         'images',
@@ -44,6 +48,7 @@ class Project extends Model
             'tools' => 'array',
             'links' => 'array',
             'images' => 'array',
+            'metrics' => 'array',
             'is_featured' => 'boolean',
         ];
     }
@@ -114,6 +119,12 @@ class Project extends Model
 
             return $size ? [$size[0], $size[1]] : [null, null];
         });
+    }
+
+    /** Whether there is a problem, a result or a number to show alongside the story. */
+    public function hasCaseStudy(): bool
+    {
+        return filled($this->problem) || filled($this->outcome) || filled($this->metrics);
     }
 
     /** What a list row says about the project: the description, or the story's first sentence. */

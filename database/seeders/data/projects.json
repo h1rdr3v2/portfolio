@@ -80,6 +80,22 @@
     "category": "mobile",
     "description": "A user-friendly mobile app designed to help university students track and calculate their CGPA effortlessly.",
     "story": "Started as a bare React Native app in 2023 to help university students track their CGPA. Migrated the entire codebase to Expo in 2025 for better DX and OTA updates. Been solo maintaining and shipping updates ever since.",
+    "problem": "Students worked out their CGPA by hand, and one wrong grade point threw the whole number off.",
+    "outcome": "Students add their courses once and always know their CGPA, with any semester editable when results change.",
+    "metrics": [
+      {
+        "value": "5k+",
+        "label": "registered students"
+      },
+      {
+        "value": "2k",
+        "label": "downloads in 2026 so far"
+      },
+      {
+        "value": "3 yrs",
+        "label": "live on iOS & Android"
+      }
+    ],
     "tools": [
       "React Native",
       "Expo",
