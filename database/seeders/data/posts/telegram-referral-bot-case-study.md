@@ -45,6 +45,12 @@ The reward type is set from the panel. It is not hard-coded for one client or on
 
 That sounds like a small detail, but it shapes everything after the first launch. When the client wants a new bot for a new campaign, most of the change is settings rather than new code.
 
+### Replies in each member's language
+
+Telegram tells the bot which language a member's account uses. The bot reads that and replies in the matching language automatically, so nobody has to pick a language or read instructions they do not understand. Across the 12 bots this covered 11 language groups, from one set of translated text managed in one place.
+
+![The Languages panel for the largest bot: members grouped by their Telegram language, 11 groups in total](/images/blog/referral-bot-languages.png)
+
 ### Tech stack
 
 - **NestJS and TypeScript** for the bot itself, with **PHP** on parts of the backend.
@@ -53,6 +59,8 @@ That sounds like a small detail, but it shapes everything after the first launch
 - **Docker** to package and deploy each bot the same way, which matters when there are twelve of them.
 
 ## Results
+
+![The admin dashboard for the largest bot: 1,255,647 users reached and 397,992 active](/images/blog/referral-bot-dashboard-stats.png)
 
 These numbers cover over three years of working with this client.
 
