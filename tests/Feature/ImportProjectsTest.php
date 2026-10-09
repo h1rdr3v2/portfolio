@@ -41,7 +41,7 @@ class ImportProjectsTest extends TestCase
     public function test_it_asks_before_adding_and_adds_nothing_on_no(): void
     {
         $this->artisan('projects:import')
-            ->expectsConfirmation('Add 29 projects?', 'no')
+            ->expectsConfirmation('Add 34 projects?', 'no')
             ->expectsOutputToContain('Nothing added.')
             ->assertSuccessful();
 

@@ -664,5 +664,124 @@
     "is_featured": false,
     "featured_order": null,
     "sort_order": 29
+  },
+  {
+    "slug": "cantaball",
+    "name": "Cantaball",
+    "category": "website",
+    "description": "Nigerian street football with bottle caps: flick your cantas into the bead, play the computer, a friend on the same phone, or a friend online with voice chat.",
+    "story": "A 3D bottle-cap football game that runs in the phone browser. Online matches use 4-letter rooms on a small WebSocket server that relays moves between phones, with a TURN relay so voice chat still works on mobile carrier networks. Quick match only pairs players who picked the same half length.",
+    "tools": [
+      "TypeScript",
+      "three.js",
+      "Node.js",
+      "WebSockets",
+      "Docker"
+    ],
+    "links": {
+      "website": "https://cantaball.bleon.net"
+    },
+    "images": [
+      "/images/projects/cantaball/cantaball-1.webp",
+      "/images/projects/cantaball/cantaball-2.webp",
+      "/images/projects/cantaball/cantaball-3.webp",
+      "/images/projects/cantaball/cantaball-4.webp"
+    ],
+    "year": "2026",
+    "sort_order": 30,
+    "is_featured": false,
+    "featured_order": null
+  },
+  {
+    "slug": "cabin-rush",
+    "name": "Cabin Rush",
+    "category": "mobile",
+    "description": "A match-3 puzzle game set on an airplane: passengers order food and drinks, and you match tiles to serve them before the plane lands.",
+    "story": "Endless world-tour flights between real cities, from Lagos through eight regions and back. The game engine is pure TypeScript with its own unit tests and balance simulator, and the UI just replays the engine's events with Reanimated. Playtesting shaped it: testers couldn't watch the passengers and the board at once, so the game moves information to where the eyes already are.",
+    "tools": [
+      "React Native",
+      "Expo",
+      "TypeScript",
+      "Reanimated"
+    ],
+    "links": {},
+    "images": [
+      "/images/projects/cabin-rush/cabin-rush-1.webp",
+      "/images/projects/cabin-rush/cabin-rush-2.webp",
+      "/images/projects/cabin-rush/cabin-rush-3.webp"
+    ],
+    "year": "2026",
+    "sort_order": 31,
+    "is_featured": false,
+    "featured_order": null
+  },
+  {
+    "slug": "vox",
+    "name": "vox",
+    "category": "api",
+    "description": "Local transcription and speech for Mac and Linux: one install that every project and coding agent shares, with an OpenAI-compatible server.",
+    "story": "AI coding agents reinstall Whisper and torch in every project, so I built one local install they can all share. It transcribes with Whisper and speaks with Kokoro, serves the OpenAI audio API so existing code only changes its base URL, and exits after five idle minutes. Nothing leaves the computer. Installable with Homebrew.",
+    "tools": [
+      "Python",
+      "Whisper",
+      "MLX",
+      "Homebrew"
+    ],
+    "links": {
+      "github": "https://github.com/h1rdr3v2/vox-cli"
+    },
+    "images": [],
+    "year": "2026",
+    "sort_order": 32,
+    "is_featured": false,
+    "featured_order": null
+  },
+  {
+    "slug": "altar-notes",
+    "name": "Altar Notes",
+    "category": "website",
+    "description": "Live sermon notes for a church: the notes type themselves out on members' phones during the service, and the media team edits and publishes afterwards.",
+    "story": "A Mac in the media booth listens to the service, transcribes it with Whisper, has a local language model write the notes and records the audio, working even without internet and catching up when it returns. An online hub (Laravel, Inertia, Vue, Reverb) streams the notes live to members and gives the media team tools to correct transcripts, publish notes and download recordings, subtitles and documents.",
+    "tools": [
+      "Laravel",
+      "Vue",
+      "Reverb",
+      "Python",
+      "Whisper",
+      "Docker"
+    ],
+    "links": {
+      "website": "https://altar-notes.bleon.net"
+    },
+    "images": [
+      "/images/projects/altar-notes/altar-notes-1.webp",
+      "/images/projects/altar-notes/altar-notes-2.webp"
+    ],
+    "year": "2026",
+    "sort_order": 33,
+    "is_featured": false,
+    "featured_order": null
+  },
+  {
+    "slug": "leadkey",
+    "name": "LeadKey",
+    "category": "bot",
+    "description": "A WhatsApp lead bot for estate agents: it replies to buyers instantly, asks a few quick questions, scores the lead and shows it on a live dashboard.",
+    "story": "Built as a demo of what I'd build for an estate agency that loses buyers who wait hours for a reply. The bot asks name, buy or rent, property type, area and budget, then marks the lead hot, warm or cold, and shows where cold leads dropped off so an agent can follow up. The conversation engine is separate from the transport, so the same bot runs on whatsapp-web.js or the WhatsApp Cloud API.",
+    "tools": [
+      "Node.js",
+      "Express",
+      "SQLite",
+      "WhatsApp"
+    ],
+    "links": {},
+    "images": [
+      "/images/projects/leadkey/leadkey-1.webp",
+      "/images/projects/leadkey/leadkey-2.webp"
+    ],
+    "year": "2026",
+    "sort_order": 34,
+    "is_featured": false,
+    "featured_order": null
   }
 ]
